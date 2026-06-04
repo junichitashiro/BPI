@@ -11,20 +11,23 @@ from pyvis.network import Network
 import sys
 
 # ── 設定 ────────────────────────────────────────────────
-EXCEL_PATH  = "team.xlsx"
+EXCEL_PATH = "team.xlsx"
 OUTPUT_HTML = "team_graph.html"
 
 # チームカラー（pyvisはHTMLカラーコードで指定）
 TEAM_COLORS = {
-    "A": "#5B8CF0",   # blue
-    "B": "#E8773A",   # coral
+    "A": "#5B8CF0",  # blue
+    "B": "#E8773A",  # coral
 }
+
+
 # ── Excelを読み込む ──────────────────────────────────────
 def load_excel(path: str):
     members = pd.read_excel(path, sheet_name="メンバー")
-    skills  = pd.read_excel(path, sheet_name="スキル")
-    flows   = pd.read_excel(path, sheet_name="業務フロー")
+    skills = pd.read_excel(path, sheet_name="スキル")
+    flows = pd.read_excel(path, sheet_name="業務フロー")
     return members, skills, flows
+
 
 # ── グラフ構築 ────────────────────────────────────────────
 def build_graph(members, skills, flows):
@@ -47,12 +50,14 @@ def build_graph(members, skills, flows):
     # 業務フローエッジ
     for _, row in flows.iterrows():
         G.add_edge(
-            row["送り手"], row["受け手"],
+            row["送り手"],
+            row["受け手"],
             edge_type="flow",
             label=row["業務内容"],
         )
 
     return G
+
 
 # ── 中心性分析 ────────────────────────────────────────────
 def compute_centrality(G):
@@ -60,13 +65,14 @@ def compute_centrality(G):
     flow_edges = [(u, v) for u, v, d in G.edges(data=True) if d.get("edge_type") == "flow"]
     G_flow = G.edge_subgraph(flow_edges).copy()
 
-    bc = nx.betweenness_centrality(G_flow)   # ボトルネック検出
-    dc = nx.in_degree_centrality(G_flow)     # 情報集中度
+    bc = nx.betweenness_centrality(G_flow)  # ボトルネック検出
+    dc = nx.in_degree_centrality(G_flow)  # 情報集中度
 
     return bc, dc
 
+
 # ── pyvis ネットワーク構築 ─────────────────────────────────
-def build_pyvis(G, betweenness, in_degree, members):
+def build_pyvis(G, betweenness, in_degree):
     net = Network(
         height="720px",
         width="100%",
@@ -74,11 +80,11 @@ def build_pyvis(G, betweenness, in_degree, members):
         bgcolor="#f8f7f4",
     )
     net.barnes_hut(
-        gravity=-12000,
-        central_gravity=0.2,
-        spring_length=260,
-        spring_strength=0.03,
-        damping=0.12,
+        gravity=-8000,
+        central_gravity=0.15,
+        spring_length=390,
+        spring_strength=0.01,
+        damping=0.25,
         overlap=1,
     )
     net.set_options("""
@@ -93,10 +99,10 @@ def build_pyvis(G, betweenness, in_degree, members):
 
     for node, data in G.nodes(data=True):
         if data.get("node_type") == "person":
-            team  = data.get("team", "?")
-            role  = data.get("role", "")
-            bc    = betweenness.get(node, 0)
-            idc   = in_degree.get(node, 0)
+            team = data.get("team", "?")
+            role = data.get("role", "")
+            bc = betweenness.get(node, 0)
+            idc = in_degree.get(node, 0)
             # ボトルネック候補は赤枠で強調
             border_color = "#E82C2C" if bc > 0.2 else "#ffffff"
             border_width = 4 if bc > 0.2 else 1.5
@@ -104,7 +110,7 @@ def build_pyvis(G, betweenness, in_degree, members):
             color = TEAM_COLORS.get(team, "#888")
 
             skill_list = data.get("skills", [])
-            skill_str  = "、".join(skill_list) if skill_list else "なし"
+            skill_str = "、".join(skill_list) if skill_list else "なし"
             tooltip_lines = [
                 f"役割: {role}",
                 f"スキル: {skill_str}",
@@ -135,7 +141,8 @@ def build_pyvis(G, betweenness, in_degree, members):
     for src, dst, data in G.edges(data=True):
         if data.get("edge_type") == "flow":
             net.add_edge(
-                src, dst,
+                src,
+                dst,
                 title=data.get("label", ""),
                 label=data.get("label", ""),
                 color={"color": "#888880", "highlight": "#333"},
@@ -146,6 +153,7 @@ def build_pyvis(G, betweenness, in_degree, members):
             )
     return net
 
+
 # ── HTML出力（凡例・フィルターUI付き）─────────────────────
 def inject_ui(html_path: str, betweenness: dict):
     with open(html_path, "r", encoding="utf-8") as f:
@@ -155,8 +163,8 @@ def inject_ui(html_path: str, betweenness: dict):
     top_bn = sorted(betweenness.items(), key=lambda x: x[1], reverse=True)[:3]
     bn_rows = "".join(
         f"<tr><td style='padding:2px 8px'>{n}</td>"
-        f"<td style='padding:2px 8px;color:{'#E82C2C' if s>0.2 else '#444'}'>"
-        f"{'⚠ ' if s>0.2 else ''}{s:.3f}</td></tr>"
+        f"<td style='padding:2px 8px;color:{'#E82C2C' if s > 0.2 else '#444'}'>"
+        f"{'⚠ ' if s > 0.2 else ''}{s:.3f}</td></tr>"
         for n, s in top_bn
     )
 
@@ -190,6 +198,7 @@ def inject_ui(html_path: str, betweenness: dict):
     with open(html_path, "w", encoding="utf-8") as f:
         f.write(html)
 
+
 # ── メイン ────────────────────────────────────────────────
 def main():
     path = sys.argv[1] if len(sys.argv) > 1 else EXCEL_PATH
@@ -204,7 +213,7 @@ def main():
     bc, idc = compute_centrality(G)
 
     print("可視化生成中...")
-    net = build_pyvis(G, bc, idc, members)
+    net = build_pyvis(G, bc, idc)
     net.save_graph(OUTPUT_HTML)
 
     inject_ui(OUTPUT_HTML, bc)
@@ -214,6 +223,7 @@ def main():
     for name, score in sorted(bc.items(), key=lambda x: x[1], reverse=True):
         flag = " ← ⚠ ボトルネック候補" if score > 0.2 else ""
         print(f"  {name:8s}: {score:.3f}{flag}")
+
 
 if __name__ == "__main__":
     main()
