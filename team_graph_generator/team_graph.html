@@ -1,0 +1,151 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        
+            <script src="lib/bindings/utils.js"></script>
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.2/dist/dist/vis-network.min.css" integrity="sha512-WgxfT5LWjfszlPHXRmBWHkV2eceiWTOBvrKCNbdgDYTHrT2AeLCGbF4sZlZw3UMN3WtL0tGUoIAKsu8mllg/XA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.2/dist/vis-network.min.js" integrity="sha512-LnvoEWDFrqGHlHmDD2101OrLcbsfkrzoSpvtSQtxK3RMnRV0eOkhhBN2dXHKRrUU8p2DGRTk35n4O8nWSVe1mQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+            
+        
+<center>
+<h1></h1>
+</center>
+
+<!-- <link rel="stylesheet" href="../node_modules/vis/dist/vis.min.css" type="text/css" />
+<script type="text/javascript" src="../node_modules/vis/dist/vis.js"> </script>-->
+        <link
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6"
+          crossorigin="anonymous"
+        />
+        <script
+          src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
+          integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
+          crossorigin="anonymous"
+        ></script>
+
+
+        <center>
+          <h1></h1>
+        </center>
+        <style type="text/css">
+
+             #mynetwork {
+                 width: 100%;
+                 height: 720px;
+                 background-color: #f8f7f4;
+                 border: 1px solid lightgray;
+                 position: relative;
+                 float: left;
+             }
+
+             
+
+             
+
+             
+        </style>
+    </head>
+
+
+    <body>
+        <div class="card" style="width: 100%">
+            
+            
+            <div id="mynetwork" class="card-body"></div>
+        </div>
+
+        
+        
+
+        <script type="text/javascript">
+
+              // initialize global variables.
+              var edges;
+              var nodes;
+              var allNodes;
+              var allEdges;
+              var nodeColors;
+              var originalNodes;
+              var network;
+              var container;
+              var options, data;
+              var filter = {
+                  item : '',
+                  property : '',
+                  value : []
+              };
+
+              
+
+              
+
+              // This method is responsible for drawing the graph, returns the drawn network
+              function drawGraph() {
+                  var container = document.getElementById('mynetwork');
+
+                  
+
+                  // parsing and collecting nodes and edges from the python
+                  nodes = new vis.DataSet([{"borderWidth": 4, "color": {"background": "#5B8CF0", "border": "#E82C2C", "highlight": {"background": "#5B8CF0", "border": "#FFD700"}}, "font": {"bold": true, "color": "#ffffff", "size": 13}, "id": "\u4e2d\u5ddd", "label": "\u4e2d\u5ddd", "margin": 10, "shape": "circle", "title": "\u5f79\u5272: \u73ed\u9577\n\u30b9\u30ad\u30eb: NC\u65cb\u76e4\u3001\u30de\u30b7\u30cb\u30f3\u30b0\u3001CAM\u30d7\u30ed\u30b0\u30e9\u30e0\n\u5a92\u4ecb\u4e2d\u5fc3\u6027: 0.685\n\u60c5\u5831\u96c6\u4e2d\u5ea6: 0.500\n\u26a0 \u30dc\u30c8\u30eb\u30cd\u30c3\u30af\u5019\u88dc"}, {"borderWidth": 1.5, "color": {"background": "#5B8CF0", "border": "#ffffff", "highlight": {"background": "#5B8CF0", "border": "#FFD700"}}, "font": {"bold": true, "color": "#ffffff", "size": 13}, "id": "\u7530\u6751", "label": "\u7530\u6751", "margin": 10, "shape": "circle", "title": "\u5f79\u5272: NC\u62c5\u5f53\n\u30b9\u30ad\u30eb: NC\u65cb\u76e4\u3001\u30de\u30b7\u30cb\u30f3\u30b0\n\u5a92\u4ecb\u4e2d\u5fc3\u6027: 0.027\n\u60c5\u5831\u96c6\u4e2d\u5ea6: 0.250"}, {"borderWidth": 1.5, "color": {"background": "#5B8CF0", "border": "#ffffff", "highlight": {"background": "#5B8CF0", "border": "#FFD700"}}, "font": {"bold": true, "color": "#ffffff", "size": 13}, "id": "\u5409\u7530", "label": "\u5409\u7530", "margin": 10, "shape": "circle", "title": "\u5f79\u5272: NC\u62c5\u5f53\n\u30b9\u30ad\u30eb: NC\u65cb\u76e4\n\u5a92\u4ecb\u4e2d\u5fc3\u6027: 0.027\n\u60c5\u5831\u96c6\u4e2d\u5ea6: 0.250"}, {"borderWidth": 1.5, "color": {"background": "#5B8CF0", "border": "#ffffff", "highlight": {"background": "#5B8CF0", "border": "#FFD700"}}, "font": {"bold": true, "color": "#ffffff", "size": 13}, "id": "\u677e\u672c", "label": "\u677e\u672c", "margin": 10, "shape": "circle", "title": "\u5f79\u5272: \u6c4e\u7528\u62c5\u5f53\n\u30b9\u30ad\u30eb: \u6c4e\u7528\u65cb\u76e4\u3001\u30d5\u30e9\u30a4\u30b9\u76e4\n\u5a92\u4ecb\u4e2d\u5fc3\u6027: 0.137\n\u60c5\u5831\u96c6\u4e2d\u5ea6: 0.125"}, {"borderWidth": 4, "color": {"background": "#E8773A", "border": "#E82C2C", "highlight": {"background": "#E8773A", "border": "#FFD700"}}, "font": {"bold": true, "color": "#ffffff", "size": 13}, "id": "\u77f3\u4e95", "label": "\u77f3\u4e95", "margin": 10, "shape": "circle", "title": "\u5f79\u5272: \u54c1\u8cea\u691c\u67fb\n\u30b9\u30ad\u30eb: \u4e09\u6b21\u5143\u6e2c\u5b9a\u3001\u54c1\u8cea\u7ba1\u7406\n\u5a92\u4ecb\u4e2d\u5fc3\u6027: 0.238\n\u60c5\u5831\u96c6\u4e2d\u5ea6: 0.375\n\u26a0 \u30dc\u30c8\u30eb\u30cd\u30c3\u30af\u5019\u88dc"}, {"borderWidth": 1.5, "color": {"background": "#E8773A", "border": "#ffffff", "highlight": {"background": "#E8773A", "border": "#FFD700"}}, "font": {"bold": true, "color": "#ffffff", "size": 13}, "id": "\u6797", "label": "\u6797", "margin": 10, "shape": "circle", "title": "\u5f79\u5272: \u54c1\u8cea\u691c\u67fb\n\u30b9\u30ad\u30eb: \u54c1\u8cea\u7ba1\u7406\n\u5a92\u4ecb\u4e2d\u5fc3\u6027: 0.119\n\u60c5\u5831\u96c6\u4e2d\u5ea6: 0.125"}, {"borderWidth": 4, "color": {"background": "#E8773A", "border": "#E82C2C", "highlight": {"background": "#E8773A", "border": "#FFD700"}}, "font": {"bold": true, "color": "#ffffff", "size": 13}, "id": "\u6728\u6751", "label": "\u6728\u6751", "margin": 10, "shape": "circle", "title": "\u5f79\u5272: \u6bb5\u53d6\u308a\n\u30b9\u30ad\u30eb: NC\u65cb\u76e4\u3001\u6bb5\u53d6\u308a\n\u5a92\u4ecb\u4e2d\u5fc3\u6027: 0.446\n\u60c5\u5831\u96c6\u4e2d\u5ea6: 0.125\n\u26a0 \u30dc\u30c8\u30eb\u30cd\u30c3\u30af\u5019\u88dc"}, {"borderWidth": 1.5, "color": {"background": "#E8773A", "border": "#ffffff", "highlight": {"background": "#E8773A", "border": "#FFD700"}}, "font": {"bold": true, "color": "#ffffff", "size": 13}, "id": "\u5c0f\u6797", "label": "\u5c0f\u6797", "margin": 10, "shape": "circle", "title": "\u5f79\u5272: \u30d7\u30ed\u30b0\u30e9\u30e0\n\u30b9\u30ad\u30eb: CAM\u30d7\u30ed\u30b0\u30e9\u30e0\u3001NC\u30d7\u30ed\u30b0\u30e9\u30e0\n\u5a92\u4ecb\u4e2d\u5fc3\u6027: 0.000\n\u60c5\u5831\u96c6\u4e2d\u5ea6: 0.000"}, {"borderWidth": 1.5, "color": {"background": "#888", "border": "#ffffff", "highlight": {"background": "#888", "border": "#FFD700"}}, "font": {"bold": true, "color": "#ffffff", "size": 13}, "id": "\u6e21\u8fba", "label": "\u6e21\u8fba", "margin": 10, "shape": "circle", "title": "\u5f79\u5272: \u4fdd\u5168\n\u30b9\u30ad\u30eb: \u8a2d\u5099\u4fdd\u5168\u3001\u30de\u30b7\u30cb\u30f3\u30b0\n\u5a92\u4ecb\u4e2d\u5fc3\u6027: 0.000\n\u60c5\u5831\u96c6\u4e2d\u5ea6: 0.125"}]);
+                  edges = new vis.DataSet([{"arrows": "to", "color": {"color": "#888880", "highlight": "#333"}, "font": {"color": "#666", "size": 9}, "from": "\u4e2d\u5ddd", "label": "\u52a0\u5de5\u5b8c\u4e86\u5831\u544a", "smooth": {"roundness": 0.15, "type": "curvedCW"}, "title": "\u52a0\u5de5\u5b8c\u4e86\u5831\u544a", "to": "\u77f3\u4e95", "width": 1.5}, {"arrows": "to", "color": {"color": "#888880", "highlight": "#333"}, "font": {"color": "#666", "size": 9}, "from": "\u4e2d\u5ddd", "label": "\u6bb5\u53d6\u308a\u5909\u66f4\u4f9d\u983c", "smooth": {"roundness": 0.15, "type": "curvedCW"}, "title": "\u6bb5\u53d6\u308a\u5909\u66f4\u4f9d\u983c", "to": "\u6728\u6751", "width": 1.5}, {"arrows": "to", "color": {"color": "#888880", "highlight": "#333"}, "font": {"color": "#666", "size": 9}, "from": "\u4e2d\u5ddd", "label": "\u8a2d\u5099\u4e0d\u5177\u5408\u9023\u7d61", "smooth": {"roundness": 0.15, "type": "curvedCW"}, "title": "\u8a2d\u5099\u4e0d\u5177\u5408\u9023\u7d61", "to": "\u6e21\u8fba", "width": 1.5}, {"arrows": "to", "color": {"color": "#888880", "highlight": "#333"}, "font": {"color": "#666", "size": 9}, "from": "\u7530\u6751", "label": "\u52a0\u5de5\u5b8c\u4e86\u5831\u544a", "smooth": {"roundness": 0.15, "type": "curvedCW"}, "title": "\u52a0\u5de5\u5b8c\u4e86\u5831\u544a", "to": "\u77f3\u4e95", "width": 1.5}, {"arrows": "to", "color": {"color": "#888880", "highlight": "#333"}, "font": {"color": "#666", "size": 9}, "from": "\u5409\u7530", "label": "\u52a0\u5de5\u5b8c\u4e86\u5831\u544a", "smooth": {"roundness": 0.15, "type": "curvedCW"}, "title": "\u52a0\u5de5\u5b8c\u4e86\u5831\u544a", "to": "\u77f3\u4e95", "width": 1.5}, {"arrows": "to", "color": {"color": "#888880", "highlight": "#333"}, "font": {"color": "#666", "size": 9}, "from": "\u677e\u672c", "label": "\u52a0\u5de5\u5b8c\u4e86\u5831\u544a", "smooth": {"roundness": 0.15, "type": "curvedCW"}, "title": "\u52a0\u5de5\u5b8c\u4e86\u5831\u544a", "to": "\u6797", "width": 1.5}, {"arrows": "to", "color": {"color": "#888880", "highlight": "#333"}, "font": {"color": "#666", "size": 9}, "from": "\u77f3\u4e95", "label": "\u691c\u67fb\u7d50\u679c\u30d5\u30a3\u30fc\u30c9\u30d0\u30c3\u30af", "smooth": {"roundness": 0.15, "type": "curvedCW"}, "title": "\u691c\u67fb\u7d50\u679c\u30d5\u30a3\u30fc\u30c9\u30d0\u30c3\u30af", "to": "\u4e2d\u5ddd", "width": 1.5}, {"arrows": "to", "color": {"color": "#888880", "highlight": "#333"}, "font": {"color": "#666", "size": 9}, "from": "\u6797", "label": "\u691c\u67fb\u7d50\u679c\u30d5\u30a3\u30fc\u30c9\u30d0\u30c3\u30af", "smooth": {"roundness": 0.15, "type": "curvedCW"}, "title": "\u691c\u67fb\u7d50\u679c\u30d5\u30a3\u30fc\u30c9\u30d0\u30c3\u30af", "to": "\u4e2d\u5ddd", "width": 1.5}, {"arrows": "to", "color": {"color": "#888880", "highlight": "#333"}, "font": {"color": "#666", "size": 9}, "from": "\u6728\u6751", "label": "\u6bb5\u53d6\u308a\u6307\u793a", "smooth": {"roundness": 0.15, "type": "curvedCW"}, "title": "\u6bb5\u53d6\u308a\u6307\u793a", "to": "\u7530\u6751", "width": 1.5}, {"arrows": "to", "color": {"color": "#888880", "highlight": "#333"}, "font": {"color": "#666", "size": 9}, "from": "\u6728\u6751", "label": "\u6bb5\u53d6\u308a\u6307\u793a", "smooth": {"roundness": 0.15, "type": "curvedCW"}, "title": "\u6bb5\u53d6\u308a\u6307\u793a", "to": "\u5409\u7530", "width": 1.5}, {"arrows": "to", "color": {"color": "#888880", "highlight": "#333"}, "font": {"color": "#666", "size": 9}, "from": "\u6728\u6751", "label": "\u6bb5\u53d6\u308a\u6307\u793a", "smooth": {"roundness": 0.15, "type": "curvedCW"}, "title": "\u6bb5\u53d6\u308a\u6307\u793a", "to": "\u677e\u672c", "width": 1.5}, {"arrows": "to", "color": {"color": "#888880", "highlight": "#333"}, "font": {"color": "#666", "size": 9}, "from": "\u5c0f\u6797", "label": "\u52a0\u5de5\u30d7\u30ed\u30b0\u30e9\u30e0\u6e21\u3057", "smooth": {"roundness": 0.15, "type": "curvedCW"}, "title": "\u52a0\u5de5\u30d7\u30ed\u30b0\u30e9\u30e0\u6e21\u3057", "to": "\u4e2d\u5ddd", "width": 1.5}, {"arrows": "to", "color": {"color": "#888880", "highlight": "#333"}, "font": {"color": "#666", "size": 9}, "from": "\u5c0f\u6797", "label": "\u52a0\u5de5\u30d7\u30ed\u30b0\u30e9\u30e0\u6e21\u3057", "smooth": {"roundness": 0.15, "type": "curvedCW"}, "title": "\u52a0\u5de5\u30d7\u30ed\u30b0\u30e9\u30e0\u6e21\u3057", "to": "\u7530\u6751", "width": 1.5}, {"arrows": "to", "color": {"color": "#888880", "highlight": "#333"}, "font": {"color": "#666", "size": 9}, "from": "\u5c0f\u6797", "label": "\u52a0\u5de5\u30d7\u30ed\u30b0\u30e9\u30e0\u6e21\u3057", "smooth": {"roundness": 0.15, "type": "curvedCW"}, "title": "\u52a0\u5de5\u30d7\u30ed\u30b0\u30e9\u30e0\u6e21\u3057", "to": "\u5409\u7530", "width": 1.5}, {"arrows": "to", "color": {"color": "#888880", "highlight": "#333"}, "font": {"color": "#666", "size": 9}, "from": "\u6e21\u8fba", "label": "\u8a2d\u5099\u70b9\u691c\u5831\u544a", "smooth": {"roundness": 0.15, "type": "curvedCW"}, "title": "\u8a2d\u5099\u70b9\u691c\u5831\u544a", "to": "\u4e2d\u5ddd", "width": 1.5}]);
+
+                  nodeColors = {};
+                  allNodes = nodes.get({ returnType: "Object" });
+                  for (nodeId in allNodes) {
+                    nodeColors[nodeId] = allNodes[nodeId].color;
+                  }
+                  allEdges = edges.get({ returnType: "Object" });
+                  // adding nodes and edges to the graph
+                  data = {nodes: nodes, edges: edges};
+
+                  var options = {"nodes": {"font": {"color": "#ffffff"}}};
+
+                  
+
+
+                  
+
+                  network = new vis.Network(container, data, options);
+
+                  
+
+                  
+
+                  
+
+
+                  
+
+                  return network;
+
+              }
+              drawGraph();
+        </script>
+    
+<div id="legend" style="
+  position:fixed; top:16px; right:16px; z-index:999;
+  background:#fff; border:1px solid #ddd; border-radius:10px;
+  padding:14px 18px; font-family:sans-serif; font-size:12px;
+  box-shadow:0 2px 8px rgba(0,0,0,0.12); min-width:200px;">
+  <div style="font-weight:600;margin-bottom:8px;font-size:13px">凡例 &amp; 分析</div>
+  <div style="display:flex;align-items:center;gap:6px;margin-bottom:4px">
+    <span style="display:inline-block;width:14px;height:14px;border-radius:50%;background:#5B8CF0"></span>チームA
+  </div>
+  <div style="display:flex;align-items:center;gap:6px;margin-bottom:4px">
+    <span style="display:inline-block;width:14px;height:14px;border-radius:50%;background:#E8773A"></span>チームB
+  </div>
+  <div style="display:flex;align-items:center;gap:6px;margin-bottom:10px">
+    <span style="display:inline-block;width:14px;height:14px;border-radius:50%;background:transparent;border:3px solid #E82C2C"></span>ボトルネック候補（赤枠）
+  </div>
+  <hr style="border:none;border-top:1px solid #eee;margin:8px 0">
+  <div style="font-weight:600;margin-bottom:6px">媒介中心性 TOP3</div>
+  <table style="border-collapse:collapse">
+    <tr><td style='padding:2px 8px'>中川</td><td style='padding:2px 8px;color:#E82C2C'>⚠ 0.685</td></tr><tr><td style='padding:2px 8px'>木村</td><td style='padding:2px 8px;color:#E82C2C'>⚠ 0.446</td></tr><tr><td style='padding:2px 8px'>石井</td><td style='padding:2px 8px;color:#E82C2C'>⚠ 0.238</td></tr>
+  </table>
+  <hr style="border:none;border-top:1px solid #eee;margin:8px 0">
+  <div style="color:#888;font-size:10px">赤枠＝ボトルネック候補（>0.2）<br>ノードをホバーでスキル・詳細表示</div>
+</div>
+</body>
+</html>
