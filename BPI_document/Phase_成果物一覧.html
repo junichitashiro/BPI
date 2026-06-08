@@ -13,252 +13,164 @@
   --paper:    #f7f5f0;
   --paper-alt:#eeecea;
   --rule:     #d8d5ce;
-  --accent:   #2a5a8c;
-  --accent2:  #8c4a2a;
-  --mark:     #e8d87a;
-  --col1:     #2a5a8c;
-  --col2:     #8c6a2a;
-  --col3:     #2a7a4a;
-  --col4:     #8c2a4a;
-  --col5:     #5a2a8c;
+  --col1: #2a5a8c; --col1l: #e8f0f8;
+  --col2: #8c6a2a; --col2l: #f8f0e8;
+  --col3: #2a7a4a; --col3l: #e8f8ee;
+  --col4: #8c2a4a; --col4l: #f8e8ee;
+  --col5: #5a2a8c; --col5l: #ede8f8;
 }
-
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
 body {
   background: var(--paper);
   color: var(--ink);
-  font-family: 'Noto Sans JP', sans-serif;
+  font-family: "Noto Sans JP", sans-serif;
   font-weight: 300;
   line-height: 1.7;
-  min-height: 100vh;
 }
 
 /* ── Header ── */
 .site-header {
-  background: var(--ink);
-  color: var(--paper);
-  padding: 48px 64px 40px;
-  position: relative;
-  overflow: hidden;
+  background: var(--ink); color: #f7f5f0;
+  padding: 48px 64px 40px; position: relative; overflow: hidden;
 }
 .site-header::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 0; right: 0; bottom: 0;
-  background: repeating-linear-gradient(
-    90deg,
-    transparent,
-    transparent 79px,
-    rgba(255,255,255,0.03) 79px,
-    rgba(255,255,255,0.03) 80px
-  );
+  content: ""; position: absolute; inset: 0;
+  background: repeating-linear-gradient(90deg,transparent,transparent 79px,rgba(255,255,255,.03) 79px,rgba(255,255,255,.03) 80px);
 }
-.header-label {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 11px;
-  letter-spacing: 0.2em;
-  color: var(--ink-lite);
-  margin-bottom: 12px;
-  position: relative;
-}
-.header-title {
-  font-family: 'Noto Serif JP', serif;
-  font-size: 28px;
-  font-weight: 700;
-  letter-spacing: 0.05em;
-  margin-bottom: 8px;
-  position: relative;
-}
-.header-sub {
-  font-size: 13px;
-  color: rgba(247,245,240,0.55);
-  position: relative;
-}
-.header-meta {
-  position: absolute;
-  right: 64px;
-  bottom: 40px;
-  text-align: right;
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 10px;
-  color: rgba(247,245,240,0.3);
-  line-height: 1.8;
-}
+.header-label { font-family: "JetBrains Mono",monospace; font-size:11px; letter-spacing:.2em; color:#8a8880; margin-bottom:12px; position:relative; }
+.header-title { font-family: "Noto Serif JP",serif; font-size:28px; font-weight:700; margin-bottom:8px; position:relative; }
+.header-sub   { font-size:13px; color:rgba(247,245,240,.55); position:relative; }
+.header-meta  { position:absolute; right:64px; bottom:40px; text-align:right; font-family:"JetBrains Mono",monospace; font-size:10px; color:rgba(247,245,240,.3); line-height:1.8; }
 
-/* ── Nav pills ── */
-.phase-nav {
-  display: flex;
-  gap: 0;
-  background: var(--ink);
-  padding: 0 64px;
-  border-top: 1px solid rgba(255,255,255,0.08);
-  overflow-x: auto;
-}
-.phase-nav a {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 14px 20px;
-  font-size: 11px;
-  font-family: 'JetBrains Mono', monospace;
-  color: rgba(247,245,240,0.45);
-  text-decoration: none;
-  border-bottom: 2px solid transparent;
-  white-space: nowrap;
-  transition: all 0.2s;
-}
-.phase-nav a:hover { color: var(--paper); border-bottom-color: rgba(255,255,255,0.3); }
-.phase-nav a .dot {
-  width: 8px; height: 8px; border-radius: 50%;
-  background: currentColor;
-  opacity: 0.6;
-}
-.phase-nav a[data-ph="1"] { --pc: var(--col1); }
-.phase-nav a[data-ph="2"] { --pc: var(--col2); }
-.phase-nav a[data-ph="3"] { --pc: var(--col3); }
-.phase-nav a[data-ph="4"] { --pc: var(--col4); }
-.phase-nav a[data-ph="5"] { --pc: var(--col5); }
-.phase-nav a:hover .dot,
-.phase-nav a.active .dot { background: var(--pc); opacity: 1; }
-.phase-nav a.active { color: var(--paper); border-bottom-color: var(--pc); }
+/* ── Nav ── */
+.phase-nav { display:flex; background:var(--ink); padding:0 64px; border-top:1px solid rgba(255,255,255,.08); overflow-x:auto; }
+.phase-nav a { display:flex; align-items:center; gap:8px; padding:14px 20px; font-size:11px; font-family:"JetBrains Mono",monospace; color:rgba(247,245,240,.45); text-decoration:none; border-bottom:2px solid transparent; white-space:nowrap; transition:all .2s; }
+.phase-nav a:hover { color:#f7f5f0; border-bottom-color:rgba(255,255,255,.3); }
+.phase-nav a .dot { width:8px; height:8px; border-radius:50%; background:currentColor; opacity:.6; }
+.phase-nav a.active { color:#f7f5f0; }
+.ph1 a.active, .ph1-nav.active { border-bottom-color:var(--col1)!important; } 
+.nav-ph1.active { border-bottom-color:var(--col1); }
+.nav-ph2.active { border-bottom-color:var(--col2); }
+.nav-ph3.active { border-bottom-color:var(--col3); }
+.nav-ph4.active { border-bottom-color:var(--col4); }
+.nav-ph5.active { border-bottom-color:var(--col5); }
+.nav-ph1.active .dot { background:var(--col1); opacity:1; }
+.nav-ph2.active .dot { background:var(--col2); opacity:1; }
+.nav-ph3.active .dot { background:var(--col3); opacity:1; }
+.nav-ph4.active .dot { background:var(--col4); opacity:1; }
+.nav-ph5.active .dot { background:var(--col5); opacity:1; }
 
 /* ── Main ── */
-main { max-width: 1200px; margin: 0 auto; padding: 64px 64px 120px; }
+main { max-width: 1400px; margin: 0 auto; padding: 64px 64px 120px; }
 
 /* ── Phase block ── */
 .phase-block { margin-bottom: 80px; }
-.phase-header {
-  display: flex;
-  align-items: baseline;
-  gap: 20px;
-  margin-bottom: 32px;
-  padding-bottom: 16px;
-  border-bottom: 1.5px solid var(--rule);
-}
-.phase-num {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 11px;
-  letter-spacing: 0.15em;
-  color: var(--ink-lite);
-}
-.phase-name {
-  font-family: 'Noto Serif JP', serif;
-  font-size: 20px;
-  font-weight: 700;
-  color: var(--ink);
-}
-.phase-stripe {
-  height: 3px;
-  width: 36px;
-  border-radius: 2px;
-  margin-left: auto;
-}
-.ph1 .phase-stripe { background: var(--col1); }
-.ph2 .phase-stripe { background: var(--col2); }
-.ph3 .phase-stripe { background: var(--col3); }
-.ph4 .phase-stripe { background: var(--col4); }
-.ph5 .phase-stripe { background: var(--col5); }
+.phase-header { display:flex; align-items:baseline; gap:20px; margin-bottom:32px; padding-bottom:16px; border-bottom:1.5px solid var(--rule); }
+.phase-num  { font-family:"JetBrains Mono",monospace; font-size:11px; letter-spacing:.15em; color:var(--ink-lite); }
+.phase-name { font-family:"Noto Serif JP",serif; font-size:20px; font-weight:700; }
+.phase-stripe { height:3px; width:36px; border-radius:2px; margin-left:auto; }
+.ph1 .phase-stripe { background:var(--col1); }
+.ph2 .phase-stripe { background:var(--col2); }
+.ph3 .phase-stripe { background:var(--col3); }
+.ph4 .phase-stripe { background:var(--col4); }
+.ph5 .phase-stripe { background:var(--col5); }
 
 /* ── Doc grid ── */
-.doc-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-  gap: 20px;
-}
+.doc-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:28px; }
 
 /* ── Doc card ── */
-.doc-card {
-  background: white;
-  border: 1px solid var(--rule);
-  border-radius: 4px;
-  overflow: hidden;
-  transition: box-shadow 0.2s, transform 0.2s;
-  cursor: default;
-}
-.doc-card:hover {
-  box-shadow: 0 8px 32px rgba(26,25,23,0.1);
-  transform: translateY(-2px);
-}
+.doc-card { background:white; border:1px solid var(--rule); border-radius:4px; overflow:hidden; transition:box-shadow .2s,transform .2s; }
+.doc-card:hover { box-shadow:0 8px 32px rgba(26,25,23,.1); transform:translateY(-2px); }
 
-/* doc preview area */
+/* ── Preview: HTML mock ── */
 .doc-preview {
-  height: 160px;
   background: var(--paper-alt);
-  position: relative;
-  overflow: hidden;
   border-bottom: 1px solid var(--rule);
-}
-.doc-preview svg {
-  width: 100%;
-  height: 100%;
-}
-
-/* doc info */
-.doc-info {
-  padding: 16px 18px 18px;
-}
-.doc-tag {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 9px;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  padding: 3px 7px;
-  border-radius: 2px;
-  display: inline-block;
-  margin-bottom: 10px;
-}
-.ph1 .doc-tag { background: #e8f0f8; color: var(--col1); }
-.ph2 .doc-tag { background: #f8f0e8; color: var(--col2); }
-.ph3 .doc-tag { background: #e8f8ee; color: var(--col3); }
-.ph4 .doc-tag { background: #f8e8ee; color: var(--col4); }
-.ph5 .doc-tag { background: #ede8f8; color: var(--col5); }
-
-.doc-name {
-  font-family: 'Noto Serif JP', serif;
-  font-size: 14px;
-  font-weight: 600;
-  margin-bottom: 8px;
-  color: var(--ink);
-  line-height: 1.4;
-}
-.doc-desc {
-  font-size: 11.5px;
+  padding: 16px;
+  font-size: 11px;
+  line-height: 1.5;
   color: var(--ink-mid);
-  line-height: 1.7;
-}
-.doc-items {
-  margin-top: 10px;
-  list-style: none;
-  border-top: 1px solid var(--paper-alt);
-  padding-top: 10px;
-}
-.doc-items li {
-  font-size: 10.5px;
-  color: var(--ink-lite);
-  padding: 2px 0;
-  padding-left: 12px;
-  position: relative;
-}
-.doc-items li::before {
-  content: '—';
-  position: absolute;
-  left: 0;
-  color: var(--rule);
 }
 
-/* ── SVG previews (inline, reusable styles) ── */
-.prev-text { font-family: 'Noto Sans JP', sans-serif; }
-.prev-hdr  { fill: #1a1917; }
-.prev-sub  { fill: #8a8880; }
-.prev-line { stroke: #d8d5ce; stroke-width: 0.5; }
-.prev-box  { fill: white; stroke: #d8d5ce; stroke-width: 0.5; }
-.prev-fill { fill: #eeecea; }
-.prev-acc1 { fill: #2a5a8c; }
-.prev-acc2 { fill: #8c6a2a; }
-.prev-acc3 { fill: #2a7a4a; }
-.prev-acc4 { fill: #8c2a4a; }
-.prev-acc5 { fill: #5a2a8c; }
+/* mock sheet styles */
+.mock-title {
+  font-size: 12px; font-weight: 600; color: white;
+  padding: 5px 8px; border-radius: 3px; margin-bottom: 8px;
+}
+.mock-row {
+  display: flex; gap: 4px; margin-bottom: 4px; align-items: stretch;
+}
+.mock-label {
+  background: #e8e7e2; border: 1px solid #d8d5ce;
+  padding: 3px 6px; border-radius: 2px;
+  font-size: 10.5px; color: var(--ink-mid);
+  white-space: nowrap; flex-shrink: 0;
+  width: 130px;
+}
+.mock-input {
+  background: white; border: 1px solid #d8d5ce;
+  padding: 3px 6px; border-radius: 2px;
+  font-size: 10.5px; color: #aaa;
+  flex: 1;
+}
+.mock-section {
+  font-size: 10.5px; font-weight: 600; color: white;
+  background: #1a1917; padding: 3px 6px;
+  border-radius: 2px; margin: 6px 0 4px;
+}
+.mock-table { width:100%; border-collapse:collapse; font-size:10.5px; margin-top:4px; }
+.mock-table th {
+  background: #4a4845; color: white;
+  padding: 3px 5px; text-align:left; border:1px solid #d8d5ce;
+  font-weight: 500;
+}
+.mock-table td {
+  background: white; border: 1px solid #d8d5ce;
+  padding: 3px 5px; color: var(--ink-mid);
+}
+.mock-table tr:nth-child(even) td { background: #fafaf8; }
+.mock-table .th-acc { background: #2a5a8c; }
+.mock-table .td-calc { background: #f0f4fa; font-weight:600; color:var(--ink); }
+.mock-note { font-size:10px; color:#aaa; margin-top:6px; font-style:italic; }
+
+/* matrix */
+.mock-quad { background:white; border:1px solid #d8d5ce; border-radius:2px; padding:4px; color:var(--ink-mid); display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; min-height:40px; font-size:10px; }
+.mock-quad.hi { background:#e8f8ee; color:#2a7a4a; font-weight:600; }
+
+/* flow */
+.mock-flow { display:flex; align-items:center; gap:4px; margin: 8px 0; flex-wrap:wrap; }
+.mock-box { background:white; border:1.5px solid #2a5a8c; border-radius:3px; padding:4px 8px; font-size:10.5px; color:var(--ink); white-space:nowrap; }
+.mock-arrow { color:#aaa; font-size:12px; }
+
+/* ba compare */
+.mock-ba { display:grid; grid-template-columns:1fr 1fr; gap:4px; margin-top:4px; }
+.mock-ba-cell { padding:4px 6px; border-radius:2px; font-size:10.5px; }
+.mock-ba-hdr  { font-weight:600; color:white; padding:3px 6px; border-radius:2px; font-size:10.5px; text-align:center; margin-bottom:2px; }
+
+/* step */
+.mock-step { display:flex; gap:6px; align-items:flex-start; margin-bottom:5px; }
+.mock-step-num { background:#5a2a8c; color:white; border-radius:3px; width:18px; height:18px; display:flex; align-items:center; justify-content:center; font-size:10px; font-weight:700; flex-shrink:0; }
+.mock-step-body { background:white; border:1px solid #d8d5ce; border-radius:2px; padding:3px 6px; flex:1; font-size:10.5px; }
+.mock-step-body .pt { font-size:9.5px; color:#aaa; margin-top:2px; }
+
+/* checklist */
+.mock-check { display:flex; align-items:center; gap:6px; padding:4px 0; border-bottom:1px solid #f0ede8; font-size:10.5px; }
+.mock-check-box { width:13px; height:13px; border:1.5px solid #d8d5ce; border-radius:2px; flex-shrink:0; display:flex; align-items:center; justify-content:center; font-size:9px; }
+.mock-check-box.done { background:#2a7a4a; border-color:#2a7a4a; color:white; }
+
+/* ── Doc info ── */
+.doc-info { padding: 20px 24px; }
+.doc-tag { font-family:"JetBrains Mono",monospace; font-size:9px; letter-spacing:.12em; text-transform:uppercase; padding:3px 7px; border-radius:2px; display:inline-block; margin-bottom:10px; }
+.ph1 .doc-tag { background:var(--col1l); color:var(--col1); }
+.ph2 .doc-tag { background:var(--col2l); color:var(--col2); }
+.ph3 .doc-tag { background:var(--col3l); color:var(--col3); }
+.ph4 .doc-tag { background:var(--col4l); color:var(--col4); }
+.ph5 .doc-tag { background:var(--col5l); color:var(--col5); }
+.doc-name { font-family:"Noto Serif JP",serif; font-size:16px; font-weight:600; margin-bottom:8px; color:var(--ink); }
+.doc-desc { font-size:12.5px; color:var(--ink-mid); line-height:1.8; }
+.doc-items { margin-top:12px; list-style:none; border-top:1px solid var(--paper-alt); padding-top:10px; }
+.doc-items li { font-size:11.5px; color:var(--ink-lite); padding:2px 0 2px 14px; position:relative; }
+.doc-items li::before { content:"—"; position:absolute; left:0; color:var(--rule); }
 </style>
 </head>
 <body>
@@ -267,19 +179,15 @@ main { max-width: 1200px; margin: 0 auto; padding: 64px 64px 120px; }
   <div class="header-label">MANUFACTURING IMPROVEMENT STANDARD FLOW</div>
   <h1 class="header-title">成果物一覧  ／  全フェーズ</h1>
   <p class="header-sub">町工場向け ゼロイチ改善サイクル — Phase 1〜5 ドキュメントガイド</p>
-  <div class="header-meta">
-    版数 Rev.1<br>
-    Phase 1〜5<br>
-    全17種
-  </div>
+  <div class="header-meta">版数 Rev.1<br>Phase 1〜5<br>全17種</div>
 </header>
 
 <nav class="phase-nav">
-  <a href="#ph1" data-ph="1" class="active"><span class="dot"></span>Ph.1 現状把握</a>
-  <a href="#ph2" data-ph="2"><span class="dot"></span>Ph.2 課題定義</a>
-  <a href="#ph3" data-ph="3"><span class="dot"></span>Ph.3 改善設計</a>
-  <a href="#ph4" data-ph="4"><span class="dot"></span>Ph.4 実施・検証</a>
-  <a href="#ph5" data-ph="5"><span class="dot"></span>Ph.5 定着・展開</a>
+  <a href="#ph1" class="nav-ph1 active"><span class="dot"></span>Ph.1 現状把握</a>
+  <a href="#ph2" class="nav-ph2"><span class="dot"></span>Ph.2 課題定義</a>
+  <a href="#ph3" class="nav-ph3"><span class="dot"></span>Ph.3 改善設計</a>
+  <a href="#ph4" class="nav-ph4"><span class="dot"></span>Ph.4 実施・検証</a>
+  <a href="#ph5" class="nav-ph5"><span class="dot"></span>Ph.5 定着・展開</a>
 </nav>
 
 <main>
@@ -293,37 +201,17 @@ main { max-width: 1200px; margin: 0 auto; padding: 64px 64px 120px; }
   </div>
   <div class="doc-grid">
 
-    <!-- ヒアリングシート -->
     <div class="doc-card">
       <div class="doc-preview">
-        <svg viewBox="0 0 260 160" xmlns="http://www.w3.org/2000/svg">
-          <rect width="260" height="160" fill="#eeecea"/>
-          <rect x="12" y="10" width="236" height="14" rx="2" fill="#2a5a8c"/>
-          <text x="16" y="21" font-size="7" fill="white" font-family="sans-serif">ヒアリングシート ／ Phase 1</text>
-          <rect x="12" y="28" width="114" height="8" rx="1" fill="white" stroke="#d8d5ce" stroke-width="0.5"/>
-          <rect x="130" y="28" width="118" height="8" rx="1" fill="white" stroke="#d8d5ce" stroke-width="0.5"/>
-          <text x="15" y="35" font-size="5.5" fill="#8a8880" font-family="sans-serif">対象現場：</text>
-          <text x="133" y="35" font-size="5.5" fill="#8a8880" font-family="sans-serif">訪問日：</text>
-          <!-- Section A -->
-          <rect x="12" y="40" width="236" height="9" rx="1" fill="#1a1917"/>
-          <text x="15" y="47" font-size="5.5" fill="white" font-family="sans-serif">■ A. 現在の業務・作業内容</text>
-          <rect x="12" y="51" width="66" height="20" rx="1" fill="#e8e7e2" stroke="#d8d5ce" stroke-width="0.5"/>
-          <text x="14" y="57" font-size="4.5" fill="#4a4845" font-family="sans-serif">担当工程・作業の流れ</text>
-          <rect x="80" y="51" width="168" height="20" rx="1" fill="white" stroke="#d8d5ce" stroke-width="0.5"/>
-          <rect x="12" y="73" width="66" height="14" rx="1" fill="#e8e7e2" stroke="#d8d5ce" stroke-width="0.5"/>
-          <text x="14" y="79" font-size="4.5" fill="#4a4845" font-family="sans-serif">1日のルーティン</text>
-          <rect x="80" y="73" width="168" height="14" rx="1" fill="white" stroke="#d8d5ce" stroke-width="0.5"/>
-          <!-- Section B -->
-          <rect x="12" y="90" width="236" height="9" rx="1" fill="#1a1917"/>
-          <text x="15" y="97" font-size="5.5" fill="white" font-family="sans-serif">■ B. 困り事・問題</text>
-          <rect x="12" y="101" width="66" height="18" rx="1" fill="#e8e7e2" stroke="#d8d5ce" stroke-width="0.5"/>
-          <text x="14" y="107" font-size="4.5" fill="#4a4845" font-family="sans-serif">日常的な困り事</text>
-          <rect x="80" y="101" width="168" height="18" rx="1" fill="white" stroke="#d8d5ce" stroke-width="0.5"/>
-          <rect x="12" y="121" width="66" height="14" rx="1" fill="#e8e7e2" stroke="#d8d5ce" stroke-width="0.5"/>
-          <text x="14" y="127" font-size="4.5" fill="#4a4845" font-family="sans-serif">ミス・手戻りの発生場面</text>
-          <rect x="80" y="121" width="168" height="14" rx="1" fill="white" stroke="#d8d5ce" stroke-width="0.5"/>
-          <text x="16" y="147" font-size="4" fill="#8a8880" font-family="sans-serif">A〜E 5セクション構成　事前情報・ヒアリング記録・観察記録</text>
-        </svg>
+        <div class="mock-title" style="background:#2a5a8c">ヒアリングシート ／ Phase 1</div>
+        <div class="mock-row"><span class="mock-label">対象現場</span><span class="mock-input"></span><span class="mock-label">訪問日</span><span class="mock-input"></span></div>
+        <div class="mock-section">■ A. 現在の業務・作業内容</div>
+        <div class="mock-row"><span class="mock-label">担当工程・作業の流れ</span><span class="mock-input"></span></div>
+        <div class="mock-row"><span class="mock-label">1日のルーティン</span><span class="mock-input"></span></div>
+        <div class="mock-section">■ B. 困り事・問題</div>
+        <div class="mock-row"><span class="mock-label">日常的な困り事</span><span class="mock-input"></span></div>
+        <div class="mock-row"><span class="mock-label">ミス・手戻りの発生場面</span><span class="mock-input"></span></div>
+        <div class="mock-note">A〜E 5セクション構成　事前情報・ヒアリング記録・観察記録の3シート</div>
       </div>
       <div class="doc-info">
         <span class="doc-tag">Ph.1 — Excel</span>
@@ -337,52 +225,24 @@ main { max-width: 1200px; margin: 0 auto; padding: 64px 64px 120px; }
       </div>
     </div>
 
-    <!-- 現状業務フロー図 -->
     <div class="doc-card">
       <div class="doc-preview">
-        <svg viewBox="0 0 260 160" xmlns="http://www.w3.org/2000/svg">
-          <rect width="260" height="160" fill="#eeecea"/>
-          <rect x="12" y="10" width="236" height="14" rx="2" fill="#2a5a8c"/>
-          <text x="16" y="21" font-size="7" fill="white" font-family="sans-serif">現状業務フロー図 ／ Phase 1</text>
-          <!-- Flow boxes -->
-          <rect x="14" y="32" width="36" height="22" rx="3" fill="white" stroke="#2a5a8c" stroke-width="1"/>
-          <text x="32" y="45" font-size="5.5" fill="#1a1917" font-family="sans-serif" text-anchor="middle">受注</text>
-          <polygon points="52,43 58,40 58,46" fill="#d8d5ce"/>
-          <rect x="60" y="32" width="36" height="22" rx="3" fill="white" stroke="#2a5a8c" stroke-width="1"/>
-          <text x="78" y="45" font-size="5.5" fill="#1a1917" font-family="sans-serif" text-anchor="middle">材料手配</text>
-          <polygon points="98,43 104,40 104,46" fill="#d8d5ce"/>
-          <rect x="106" y="32" width="36" height="22" rx="3" fill="white" stroke="#2a5a8c" stroke-width="1"/>
-          <text x="124" y="45" font-size="5.5" fill="#1a1917" font-family="sans-serif" text-anchor="middle">加工</text>
-          <polygon points="144,43 150,40 150,46" fill="#d8d5ce"/>
-          <rect x="152" y="32" width="36" height="22" rx="3" fill="white" stroke="#2a5a8c" stroke-width="1"/>
-          <text x="170" y="45" font-size="5.5" fill="#1a1917" font-family="sans-serif" text-anchor="middle">検査</text>
-          <polygon points="190,43 196,40 196,46" fill="#d8d5ce"/>
-          <rect x="198" y="32" width="36" height="22" rx="3" fill="white" stroke="#2a5a8c" stroke-width="1"/>
-          <text x="216" y="45" font-size="5.5" fill="#1a1917" font-family="sans-serif" text-anchor="middle">出荷</text>
-          <!-- problem markers -->
-          <circle cx="124" cy="30" r="5" fill="#e8d87a" stroke="#8a8880" stroke-width="0.5"/>
-          <text x="124" y="33" font-size="5" fill="#1a1917" font-family="sans-serif" text-anchor="middle">!</text>
-          <circle cx="170" cy="30" r="5" fill="#e8d87a" stroke="#8a8880" stroke-width="0.5"/>
-          <text x="170" y="33" font-size="5" fill="#1a1917" font-family="sans-serif" text-anchor="middle">!</text>
-          <!-- table below -->
-          <rect x="12" y="62" width="236" height="9" rx="1" fill="#1a1917"/>
-          <text x="15" y="69" font-size="5.5" fill="white" font-family="sans-serif">■ 工程一覧</text>
-          <!-- table rows -->
-          <rect x="12" y="73" width="18" height="8" fill="#e8e7e2" stroke="#d8d5ce" stroke-width="0.5"/>
-          <rect x="30" y="73" width="48" height="8" fill="#e8e7e2" stroke="#d8d5ce" stroke-width="0.5"/>
-          <rect x="78" y="73" width="80" height="8" fill="#e8e7e2" stroke="#d8d5ce" stroke-width="0.5"/>
-          <rect x="158" y="73" width="90" height="8" fill="#e8e7e2" stroke="#d8d5ce" stroke-width="0.5"/>
-          <text x="15" y="79" font-size="4.5" fill="#4a4845" font-family="sans-serif">No.</text>
-          <text x="32" y="79" font-size="4.5" fill="#4a4845" font-family="sans-serif">工程名</text>
-          <text x="80" y="79" font-size="4.5" fill="#4a4845" font-family="sans-serif">作業内容</text>
-          <text x="160" y="79" font-size="4.5" fill="#4a4845" font-family="sans-serif">担当者・設備・標準時間</text>
-          <rect x="12" y="81" width="236" height="7" fill="white" stroke="#d8d5ce" stroke-width="0.5"/>
-          <rect x="12" y="88" width="236" height="7" fill="#fafaf8" stroke="#d8d5ce" stroke-width="0.5"/>
-          <rect x="12" y="95" width="236" height="7" fill="white" stroke="#d8d5ce" stroke-width="0.5"/>
-          <rect x="12" y="102" width="236" height="7" fill="#fafaf8" stroke="#d8d5ce" stroke-width="0.5"/>
-          <rect x="12" y="109" width="236" height="7" fill="white" stroke="#d8d5ce" stroke-width="0.5"/>
-          <text x="16" y="130" font-size="4" fill="#8a8880" font-family="sans-serif">工程一覧・情報の流れ・問題ポイント記録　＋　フロー図貼り付けエリア</text>
-        </svg>
+        <div class="mock-title" style="background:#2a5a8c">現状業務フロー図 ／ Phase 1</div>
+        <div class="mock-flow">
+          <div class="mock-box">受注</div><span class="mock-arrow">▶</span>
+          <div class="mock-box">材料手配</div><span class="mock-arrow">▶</span>
+          <div class="mock-box">加工 ⚠</div><span class="mock-arrow">▶</span>
+          <div class="mock-box">検査 ⚠</div><span class="mock-arrow">▶</span>
+          <div class="mock-box">出荷</div>
+        </div>
+        <div class="mock-section">■ 工程一覧</div>
+        <table class="mock-table">
+          <tr><th>No.</th><th>工程名</th><th>作業内容</th><th>担当者</th><th>標準時間</th></tr>
+          <tr><td>1</td><td>旋盤加工</td><td>丸棒切削</td><td>Aさん</td><td>30分</td></tr>
+          <tr><td>2</td><td>バリ取り</td><td>エッジ処理</td><td>Bさん</td><td>10分</td></tr>
+          <tr><td>3</td><td>寸法検査</td><td>ノギス計測</td><td>Aさん</td><td>15分</td></tr>
+        </table>
+        <div class="mock-note">工程一覧・情報の流れ・問題ポイント記録　＋　フロー図貼り付けエリア</div>
       </div>
       <div class="doc-info">
         <span class="doc-tag">Ph.1 — Excel</span>
@@ -395,64 +255,19 @@ main { max-width: 1200px; margin: 0 auto; padding: 64px 64px 120px; }
       </div>
     </div>
 
-    <!-- 工数記録表 -->
     <div class="doc-card">
       <div class="doc-preview">
-        <svg viewBox="0 0 260 160" xmlns="http://www.w3.org/2000/svg">
-          <rect width="260" height="160" fill="#eeecea"/>
-          <rect x="12" y="10" width="236" height="14" rx="2" fill="#2a5a8c"/>
-          <text x="16" y="21" font-size="7" fill="white" font-family="sans-serif">工数記録表 ／ Phase 1</text>
-          <!-- table header -->
-          <rect x="12" y="28" width="18" height="9" fill="#4a4845"/>
-          <rect x="30" y="28" width="50" height="9" fill="#4a4845"/>
-          <rect x="80" y="28" width="24" height="9" fill="#4a4845"/>
-          <rect x="104" y="28" width="16" height="9" fill="#4a4845"/>
-          <rect x="120" y="28" width="16" height="9" fill="#4a4845"/>
-          <rect x="136" y="28" width="16" height="9" fill="#4a4845"/>
-          <rect x="152" y="28" width="16" height="9" fill="#4a4845"/>
-          <rect x="168" y="28" width="16" height="9" fill="#4a4845"/>
-          <rect x="184" y="28" width="22" height="9" fill="#2a5a8c"/>
-          <rect x="206" y="28" width="16" height="9" fill="#4a4845"/>
-          <rect x="222" y="28" width="16" height="9" fill="#4a4845"/>
-          <text x="15" y="35" font-size="4" fill="white" font-family="sans-serif">No.</text>
-          <text x="32" y="35" font-size="4" fill="white" font-family="sans-serif">工程名</text>
-          <text x="82" y="35" font-size="4" fill="white" font-family="sans-serif">担当</text>
-          <text x="106" y="35" font-size="4" fill="white" font-family="sans-serif">1回</text>
-          <text x="122" y="35" font-size="4" fill="white" font-family="sans-serif">2回</text>
-          <text x="138" y="35" font-size="4" fill="white" font-family="sans-serif">3回</text>
-          <text x="154" y="35" font-size="4" fill="white" font-family="sans-serif">4回</text>
-          <text x="170" y="35" font-size="4" fill="white" font-family="sans-serif">5回</text>
-          <text x="186" y="35" font-size="4" fill="white" font-family="sans-serif">平均</text>
-          <text x="208" y="35" font-size="4" fill="white" font-family="sans-serif">最小</text>
-          <text x="224" y="35" font-size="4" fill="white" font-family="sans-serif">最大</text>
-          <!-- data rows -->
-          <rect x="12" y="37" width="236" height="8" fill="white" stroke="#d8d5ce" stroke-width="0.3"/>
-          <text x="16" y="43" font-size="4" fill="#4a4845" font-family="sans-serif">1  旋盤加工</text>
-          <text x="186" y="43" font-size="4" fill="#1a1917" font-family="sans-serif">12.4</text>
-          <rect x="12" y="45" width="236" height="8" fill="#fafaf8" stroke="#d8d5ce" stroke-width="0.3"/>
-          <text x="16" y="51" font-size="4" fill="#4a4845" font-family="sans-serif">2  バリ取り</text>
-          <text x="186" y="51" font-size="4" fill="#1a1917" font-family="sans-serif">5.8</text>
-          <rect x="12" y="53" width="236" height="8" fill="white" stroke="#d8d5ce" stroke-width="0.3"/>
-          <text x="16" y="59" font-size="4" fill="#4a4845" font-family="sans-serif">3  洗浄</text>
-          <text x="186" y="59" font-size="4" fill="#1a1917" font-family="sans-serif">3.2</text>
-          <rect x="12" y="61" width="236" height="8" fill="#fafaf8" stroke="#d8d5ce" stroke-width="0.3"/>
-          <text x="16" y="67" font-size="4" fill="#4a4845" font-family="sans-serif">4  寸法検査</text>
-          <text x="186" y="67" font-size="4" fill="#1a1917" font-family="sans-serif">8.6</text>
-          <rect x="12" y="69" width="236" height="8" fill="white" stroke="#d8d5ce" stroke-width="0.3"/>
-          <rect x="12" y="77" width="236" height="8" fill="#fafaf8" stroke="#d8d5ce" stroke-width="0.3"/>
-          <!-- total -->
-          <rect x="12" y="85" width="80" height="9" fill="#e8e7e2" stroke="#d8d5ce" stroke-width="0.5"/>
-          <text x="16" y="92" font-size="5" fill="#1a1917" font-weight="bold" font-family="sans-serif">合計</text>
-          <rect x="184" y="85" width="22" height="9" fill="#e8e7e2" stroke="#d8d5ce" stroke-width="0.5"/>
-          <text x="186" y="92" font-size="4.5" fill="#1a1917" font-family="sans-serif">30.0</text>
-          <!-- mini chart -->
-          <rect x="12" y="100" width="236" height="9" rx="1" fill="#1a1917"/>
-          <text x="15" y="107" font-size="5.5" fill="white" font-family="sans-serif">■ 気づき・分析メモ</text>
-          <rect x="12" y="111" width="66" height="14" rx="1" fill="#e8e7e2" stroke="#d8d5ce" stroke-width="0.5"/>
-          <text x="14" y="117" font-size="4.5" fill="#4a4845" font-family="sans-serif">ボトルネック候補</text>
-          <rect x="80" y="111" width="168" height="14" rx="1" fill="white" stroke="#d8d5ce" stroke-width="0.5"/>
-          <text x="16" y="145" font-size="4" fill="#8a8880" font-family="sans-serif">5回計測・平均/最小/最大を自動計算　日別サマリシート付き</text>
-        </svg>
+        <div class="mock-title" style="background:#2a5a8c">工数記録表 ／ Phase 1</div>
+        <table class="mock-table">
+          <tr><th>No.</th><th>工程名</th><th>担当</th><th>1回</th><th>2回</th><th>3回</th><th class="th-acc">平均</th><th>最小</th><th>最大</th></tr>
+          <tr><td>1</td><td>旋盤加工</td><td>Aさん</td><td>31</td><td>29</td><td>32</td><td class="td-calc">30.7</td><td>29</td><td>32</td></tr>
+          <tr><td>2</td><td>バリ取り</td><td>Bさん</td><td>11</td><td>10</td><td>12</td><td class="td-calc">11.0</td><td>10</td><td>12</td></tr>
+          <tr><td>3</td><td>寸法検査</td><td>Aさん</td><td>14</td><td>16</td><td>15</td><td class="td-calc">15.0</td><td>14</td><td>16</td></tr>
+          <tr><td>4</td><td>洗浄</td><td>Bさん</td><td>8</td><td>9</td><td>8</td><td class="td-calc">8.3</td><td>8</td><td>9</td></tr>
+        </table>
+        <div class="mock-section">■ 気づき・分析メモ</div>
+        <div class="mock-row"><span class="mock-label">ボトルネック候補</span><span class="mock-input"></span></div>
+        <div class="mock-note">5回計測・平均/最小/最大を自動計算　日別サマリシート付き</div>
       </div>
       <div class="doc-info">
         <span class="doc-tag">Ph.1 — Excel</span>
@@ -466,34 +281,19 @@ main { max-width: 1200px; margin: 0 auto; padding: 64px 64px 120px; }
       </div>
     </div>
 
-    <!-- 現状サマリー -->
     <div class="doc-card">
       <div class="doc-preview">
-        <svg viewBox="0 0 260 160" xmlns="http://www.w3.org/2000/svg">
-          <rect width="260" height="160" fill="#eeecea"/>
-          <rect x="12" y="10" width="236" height="14" rx="2" fill="#2a5a8c"/>
-          <text x="16" y="21" font-size="7" fill="white" font-family="sans-serif">現状サマリー ／ Phase 1 統合整理</text>
-          <!-- sections list -->
-          <rect x="12" y="28" width="236" height="8" rx="1" fill="#1a1917"/>
-          <text x="15" y="34.5" font-size="5" fill="white" font-family="sans-serif">■ 1. 会社・現場の基本情報</text>
-          <rect x="12" y="36" width="66" height="12" fill="#e8e7e2" stroke="#d8d5ce" stroke-width="0.5"/>
-          <rect x="78" y="36" width="170" height="12" fill="white" stroke="#d8d5ce" stroke-width="0.5"/>
-          <rect x="12" y="48" width="236" height="8" rx="1" fill="#1a1917"/>
-          <text x="15" y="54.5" font-size="5" fill="white" font-family="sans-serif">■ 2. 現状の業務フロー（サマリ）</text>
-          <rect x="12" y="56" width="66" height="18" fill="#e8e7e2" stroke="#d8d5ce" stroke-width="0.5"/>
-          <rect x="78" y="56" width="170" height="18" fill="white" stroke="#d8d5ce" stroke-width="0.5"/>
-          <rect x="12" y="74" width="236" height="8" rx="1" fill="#1a1917"/>
-          <text x="15" y="80.5" font-size="5" fill="white" font-family="sans-serif">■ 3. 主要な困り事・問題</text>
-          <rect x="12" y="82" width="66" height="14" fill="#e8e7e2" stroke="#d8d5ce" stroke-width="0.5"/>
-          <rect x="78" y="82" width="170" height="14" fill="white" stroke="#d8d5ce" stroke-width="0.5"/>
-          <rect x="12" y="96" width="236" height="8" rx="1" fill="#1a1917"/>
-          <text x="15" y="102.5" font-size="5" fill="white" font-family="sans-serif">■ 6. 改善テーマ候補（Phase 2への引き渡し）</text>
-          <rect x="12" y="104" width="236" height="10" fill="white" stroke="#2a5a8c" stroke-width="1"/>
-          <text x="16" y="111" font-size="4.5" fill="#2a5a8c" font-family="sans-serif">候補テーマ①</text>
-          <rect x="12" y="114" width="236" height="10" fill="white" stroke="#d8d5ce" stroke-width="0.5"/>
-          <rect x="12" y="124" width="236" height="10" fill="#fafaf8" stroke="#d8d5ce" stroke-width="0.5"/>
-          <text x="16" y="147" font-size="4" fill="#8a8880" font-family="sans-serif">8セクション構成　ヒアリング・観察・計測の結果を統合　Phase 2へ引き渡し</text>
-        </svg>
+        <div class="mock-title" style="background:#2a5a8c">現状サマリー ／ Phase 1 統合整理</div>
+        <div class="mock-section">■ 1. 会社・現場の基本情報</div>
+        <div class="mock-row"><span class="mock-label">会社名 / 現場名</span><span class="mock-input"></span></div>
+        <div class="mock-row"><span class="mock-label">主要製品・加工品目</span><span class="mock-input"></span></div>
+        <div class="mock-section">■ 3. 主要な困り事・問題</div>
+        <div class="mock-row"><span class="mock-label">品質に関する問題</span><span class="mock-input"></span></div>
+        <div class="mock-row"><span class="mock-label">生産性・効率の問題</span><span class="mock-input"></span></div>
+        <div class="mock-section">■ 6. 改善テーマ候補（Phase 2への引き渡し）</div>
+        <div class="mock-row"><span class="mock-label">候補テーマ①</span><span class="mock-input"></span></div>
+        <div class="mock-row"><span class="mock-label">候補テーマ②</span><span class="mock-input"></span></div>
+        <div class="mock-note">8セクション構成　ヒアリング・観察・計測の結果を統合　Phase 2へ引き渡し</div>
       </div>
       <div class="doc-info">
         <span class="doc-tag">Ph.1 — Excel</span>
@@ -519,46 +319,20 @@ main { max-width: 1200px; margin: 0 auto; padding: 64px 64px 120px; }
   </div>
   <div class="doc-grid">
 
-    <!-- 問題構造シート -->
     <div class="doc-card">
       <div class="doc-preview">
-        <svg viewBox="0 0 260 160" xmlns="http://www.w3.org/2000/svg">
-          <rect width="260" height="160" fill="#eeecea"/>
-          <rect x="12" y="10" width="236" height="14" rx="2" fill="#8c6a2a"/>
-          <text x="16" y="21" font-size="7" fill="white" font-family="sans-serif">問題構造シート ／ Phase 2</text>
-          <!-- Why-Why diagram sketch -->
-          <rect x="12" y="30" width="50" height="16" rx="2" fill="#8c6a2a"/>
-          <text x="37" y="41" font-size="5" fill="white" font-family="sans-serif" text-anchor="middle">問題（現象）</text>
-          <!-- why arrows -->
-          <line x1="62" y1="38" x2="74" y2="38" stroke="#d8d5ce" stroke-width="1"/>
-          <polygon points="72,35 78,38 72,41" fill="#d8d5ce"/>
-          <rect x="78" y="25" width="42" height="12" rx="2" fill="white" stroke="#8c6a2a" stroke-width="1"/>
-          <text x="99" y="33.5" font-size="4.5" fill="#1a1917" font-family="sans-serif" text-anchor="middle">なぜ①</text>
-          <rect x="78" y="40" width="42" height="12" rx="2" fill="white" stroke="#8c6a2a" stroke-width="1"/>
-          <text x="99" y="48.5" font-size="4.5" fill="#1a1917" font-family="sans-serif" text-anchor="middle">なぜ①</text>
-          <line x1="120" y1="31" x2="132" y2="31" stroke="#d8d5ce" stroke-width="1"/>
-          <polygon points="130,28 136,31 130,34" fill="#d8d5ce"/>
-          <line x1="120" y1="46" x2="132" y2="46" stroke="#d8d5ce" stroke-width="1"/>
-          <polygon points="130,43 136,46 130,49" fill="#d8d5ce"/>
-          <rect x="136" y="22" width="38" height="11" rx="2" fill="white" stroke="#d8d5ce" stroke-width="0.8"/>
-          <text x="155" y="30" font-size="4" fill="#8a8880" font-family="sans-serif" text-anchor="middle">なぜ②</text>
-          <rect x="136" y="35" width="38" height="11" rx="2" fill="white" stroke="#d8d5ce" stroke-width="0.8"/>
-          <text x="155" y="43" font-size="4" fill="#8a8880" font-family="sans-serif" text-anchor="middle">なぜ②</text>
-          <rect x="136" y="48" width="38" height="11" rx="2" fill="white" stroke="#d8d5ce" stroke-width="0.8"/>
-          <text x="155" y="56" font-size="4" fill="#8a8880" font-family="sans-serif" text-anchor="middle">なぜ②</text>
-          <rect x="180" y="22" width="32" height="11" rx="2" fill="#f8f0e8" stroke="#8c6a2a" stroke-width="0.8"/>
-          <text x="196" y="30" font-size="4" fill="#8c6a2a" font-family="sans-serif" text-anchor="middle">根本原因</text>
-          <rect x="180" y="35" width="32" height="11" rx="2" fill="#f8f0e8" stroke="#8c6a2a" stroke-width="0.8"/>
-          <rect x="180" y="48" width="32" height="11" rx="2" fill="#f8f0e8" stroke="#8c6a2a" stroke-width="0.8"/>
-          <!-- section below -->
-          <rect x="12" y="68" width="236" height="8" rx="1" fill="#1a1917"/>
-          <text x="15" y="74.5" font-size="5" fill="white" font-family="sans-serif">■ 問題と症状の切り分け</text>
-          <rect x="12" y="78" width="114" height="30" rx="1" fill="white" stroke="#d8d5ce" stroke-width="0.5"/>
-          <text x="69" y="86" font-size="5" fill="#8a8880" font-family="sans-serif" text-anchor="middle">症状（見えている問題）</text>
-          <rect x="130" y="78" width="118" height="30" rx="1" fill="white" stroke="#d8d5ce" stroke-width="0.5"/>
-          <text x="189" y="86" font-size="5" fill="#8a8880" font-family="sans-serif" text-anchor="middle">根本原因（本質的な問題）</text>
-          <text x="16" y="127" font-size="4" fill="#8a8880" font-family="sans-serif">なぜなぜ分析・フィッシュボーン　問題と症状の切り分け欄付き</text>
-        </svg>
+        <div class="mock-title" style="background:#8c6a2a">問題構造シート ／ Phase 2</div>
+        <div class="mock-section">■ なぜなぜ分析</div>
+        <div class="mock-row"><span class="mock-label">問題（現象）</span><span class="mock-input" style="background:#f8f0e8">段取り時間が長い（30分）</span></div>
+        <div class="mock-row"><span class="mock-label">なぜ①</span><span class="mock-input">治具の準備に時間がかかる</span></div>
+        <div class="mock-row"><span class="mock-label">なぜ②</span><span class="mock-input">治具の保管場所が決まっていない</span></div>
+        <div class="mock-row"><span class="mock-label">なぜ③</span><span class="mock-input">標準化・ルール化がされていない</span></div>
+        <div class="mock-row"><span class="mock-label" style="background:#f8f0e8;font-weight:600">根本原因</span><span class="mock-input" style="background:#f8f0e8;color:#8c6a2a">標準作業の不在</span></div>
+        <div class="mock-section">■ 問題と症状の切り分け</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:4px;margin-top:4px">
+          <div style="background:white;border:1px solid #d8d5ce;border-radius:2px;padding:6px;font-size:10.5px;color:var(--ink-mid)">症状（見えている問題）<br><span style="color:#aaa">段取りに30分かかる</span></div>
+          <div style="background:#f8f0e8;border:1px solid #8c6a2a;border-radius:2px;padding:6px;font-size:10.5px;color:#8c6a2a">根本原因<br><span style="font-weight:600">標準作業の不在</span></div>
+        </div>
       </div>
       <div class="doc-info">
         <span class="doc-tag">Ph.2 — Excel</span>
@@ -572,48 +346,32 @@ main { max-width: 1200px; margin: 0 auto; padding: 64px 64px 120px; }
       </div>
     </div>
 
-    <!-- 課題一覧・優先順位表 -->
     <div class="doc-card">
       <div class="doc-preview">
-        <svg viewBox="0 0 260 160" xmlns="http://www.w3.org/2000/svg">
-          <rect width="260" height="160" fill="#eeecea"/>
-          <rect x="12" y="10" width="236" height="14" rx="2" fill="#8c6a2a"/>
-          <text x="16" y="21" font-size="7" fill="white" font-family="sans-serif">課題一覧・優先順位表 ／ Phase 2</text>
-          <!-- matrix -->
-          <rect x="100" y="30" width="140" height="100" fill="white" stroke="#d8d5ce" stroke-width="0.5"/>
-          <line x1="170" y1="30" x2="170" y2="130" stroke="#d8d5ce" stroke-width="0.5"/>
-          <line x1="100" y1="80" x2="240" y2="80" stroke="#d8d5ce" stroke-width="0.5"/>
-          <!-- quadrant labels -->
-          <text x="135" y="52" font-size="4.5" fill="#2a7a4a" font-family="sans-serif" text-anchor="middle">優先着手</text>
-          <text x="135" y="58" font-size="4" fill="#8a8880" font-family="sans-serif" text-anchor="middle">高×高</text>
-          <text x="205" y="52" font-size="4.5" fill="#8a8880" font-family="sans-serif" text-anchor="middle">計画的に実施</text>
-          <text x="205" y="58" font-size="4" fill="#8a8880" font-family="sans-serif" text-anchor="middle">高×低</text>
-          <text x="135" y="108" font-size="4.5" fill="#8c6a2a" font-family="sans-serif" text-anchor="middle">すぐ着手</text>
-          <text x="135" y="114" font-size="4" fill="#8a8880" font-family="sans-serif" text-anchor="middle">低×高</text>
-          <text x="205" y="108" font-size="4.5" fill="#8a8880" font-family="sans-serif" text-anchor="middle">後回し</text>
-          <text x="205" y="114" font-size="4" fill="#8a8880" font-family="sans-serif" text-anchor="middle">低×低</text>
-          <!-- dots -->
-          <circle cx="138" cy="45" r="4" fill="#8c6a2a" opacity="0.8"/>
-          <text x="139" y="47" font-size="4" fill="white" font-family="sans-serif" text-anchor="middle">A</text>
-          <circle cx="148" cy="60" r="4" fill="#8c6a2a" opacity="0.6"/>
-          <text x="149" y="62" font-size="4" fill="white" font-family="sans-serif" text-anchor="middle">B</text>
-          <circle cx="125" cy="95" r="4" fill="#2a5a8c" opacity="0.7"/>
-          <text x="126" y="97" font-size="4" fill="white" font-family="sans-serif" text-anchor="middle">C</text>
-          <!-- axis labels -->
-          <text x="170" y="140" font-size="4.5" fill="#8a8880" font-family="sans-serif" text-anchor="middle">← 実現性（低）　（高）→</text>
-          <text x="94" y="80" font-size="4.5" fill="#8a8880" font-family="sans-serif" text-anchor="middle" transform="rotate(-90,94,80)">インパクト</text>
-          <!-- list on left -->
-          <rect x="12" y="30" width="84" height="8" fill="#4a4845"/>
-          <text x="15" y="36.5" font-size="4.5" fill="white" font-family="sans-serif">課題一覧</text>
-          <rect x="12" y="38" width="84" height="7" fill="white" stroke="#d8d5ce" stroke-width="0.3"/>
-          <text x="15" y="43.5" font-size="4" fill="#4a4845" font-family="sans-serif">A 段取り時間が長い</text>
-          <rect x="12" y="45" width="84" height="7" fill="#fafaf8" stroke="#d8d5ce" stroke-width="0.3"/>
-          <text x="15" y="50.5" font-size="4" fill="#4a4845" font-family="sans-serif">B 検査の手直し多発</text>
-          <rect x="12" y="52" width="84" height="7" fill="white" stroke="#d8d5ce" stroke-width="0.3"/>
-          <text x="15" y="57.5" font-size="4" fill="#4a4845" font-family="sans-serif">C 指示書の不統一</text>
-          <rect x="12" y="59" width="84" height="7" fill="#fafaf8" stroke="#d8d5ce" stroke-width="0.3"/>
-          <rect x="12" y="66" width="84" height="7" fill="white" stroke="#d8d5ce" stroke-width="0.3"/>
-        </svg>
+        <div class="mock-title" style="background:#8c6a2a">課題一覧・優先順位表 ／ Phase 2</div>
+        <table class="mock-table" style="margin-bottom:8px">
+          <tr><th>ID</th><th>課題名</th><th>インパクト</th><th>実現性</th><th>優先度</th></tr>
+          <tr><td>A</td><td>段取り時間削減</td><td style="text-align:center">高</td><td style="text-align:center">高</td><td style="background:#e8f8ee;color:#2a7a4a;text-align:center;font-weight:600">最優先</td></tr>
+          <tr><td>B</td><td>検査手直し低減</td><td style="text-align:center">高</td><td style="text-align:center">中</td><td style="text-align:center">優先</td></tr>
+          <tr><td>C</td><td>指示書の統一</td><td style="text-align:center">中</td><td style="text-align:center">高</td><td style="text-align:center">次回</td></tr>
+        </table>
+        <div class="mock-section">■ インパクト × 実現性マトリクス</div>
+        <div style="display:flex;gap:4px;margin-top:6px;align-items:stretch">
+          <!-- 縦軸ラベル -->
+          <div style="display:flex;align-items:center;justify-content:center;width:18px;flex-shrink:0">
+            <span style="font-size:9px;color:#aaa;writing-mode:vertical-rl;white-space:nowrap">← 高　インパクト　低 →</span>
+          </div>
+          <!-- マトリクス本体 + 横軸ラベル -->
+          <div style="flex:1">
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:3px;margin-bottom:4px">
+              <div class="mock-quad hi">優先着手<br><small>高×高　A</small></div>
+              <div class="mock-quad">計画的に実施<br><small>高×低　B</small></div>
+              <div class="mock-quad">すぐ着手<br><small>低×高　C</small></div>
+              <div class="mock-quad">後回し<br><small>低×低</small></div>
+            </div>
+            <div style="text-align:center;font-size:9px;color:#aaa">← 低　実現性　高 →</div>
+          </div>
+        </div>
       </div>
       <div class="doc-info">
         <span class="doc-tag">Ph.2 — Excel</span>
@@ -627,40 +385,18 @@ main { max-width: 1200px; margin: 0 auto; padding: 64px 64px 120px; }
       </div>
     </div>
 
-    <!-- 改善テーマ定義書 -->
     <div class="doc-card">
       <div class="doc-preview">
-        <svg viewBox="0 0 260 160" xmlns="http://www.w3.org/2000/svg">
-          <rect width="260" height="160" fill="#eeecea"/>
-          <rect x="12" y="10" width="236" height="14" rx="2" fill="#8c6a2a"/>
-          <text x="16" y="21" font-size="7" fill="white" font-family="sans-serif">改善テーマ定義書 ／ Phase 2</text>
-          <!-- form -->
-          <rect x="12" y="28" width="236" height="8" rx="1" fill="#1a1917"/>
-          <text x="15" y="34.5" font-size="5" fill="white" font-family="sans-serif">■ テーマ基本情報</text>
-          <rect x="12" y="36" width="60" height="9" fill="#e8e7e2" stroke="#d8d5ce" stroke-width="0.5"/>
-          <rect x="72" y="36" width="176" height="9" fill="white" stroke="#d8d5ce" stroke-width="0.5"/>
-          <text x="14" y="42.5" font-size="4.5" fill="#4a4845" font-family="sans-serif">テーマ名称</text>
-          <rect x="12" y="45" width="60" height="9" fill="#e8e7e2" stroke="#d8d5ce" stroke-width="0.5"/>
-          <rect x="72" y="45" width="176" height="9" fill="white" stroke="#d8d5ce" stroke-width="0.5"/>
-          <text x="14" y="51.5" font-size="4.5" fill="#4a4845" font-family="sans-serif">対象工程・範囲</text>
-          <rect x="12" y="58" width="236" height="8" rx="1" fill="#1a1917"/>
-          <text x="15" y="64.5" font-size="5" fill="white" font-family="sans-serif">■ 問題の定義</text>
-          <rect x="12" y="66" width="60" height="18" fill="#e8e7e2" stroke="#d8d5ce" stroke-width="0.5"/>
-          <rect x="72" y="66" width="176" height="18" fill="white" stroke="#d8d5ce" stroke-width="0.5"/>
-          <text x="14" y="72.5" font-size="4.5" fill="#4a4845" font-family="sans-serif">現状の問題（As-Is）</text>
-          <rect x="12" y="84" width="236" height="8" rx="1" fill="#1a1917"/>
-          <text x="15" y="90.5" font-size="5" fill="white" font-family="sans-serif">■ 目標・スコープ</text>
-          <rect x="12" y="92" width="60" height="12" fill="#e8e7e2" stroke="#d8d5ce" stroke-width="0.5"/>
-          <rect x="72" y="92" width="176" height="12" fill="white" stroke="#d8d5ce" stroke-width="0.5"/>
-          <text x="14" y="98.5" font-size="4.5" fill="#4a4845" font-family="sans-serif">目標状態（To-Be）</text>
-          <rect x="12" y="104" width="60" height="9" fill="#e8e7e2" stroke="#d8d5ce" stroke-width="0.5"/>
-          <rect x="72" y="104" width="176" height="9" fill="white" stroke="#d8d5ce" stroke-width="0.5"/>
-          <text x="14" y="110.5" font-size="4.5" fill="#4a4845" font-family="sans-serif">成功指標（KPI）</text>
-          <rect x="12" y="113" width="60" height="9" fill="#e8e7e2" stroke="#d8d5ce" stroke-width="0.5"/>
-          <rect x="72" y="113" width="176" height="9" fill="white" stroke="#d8d5ce" stroke-width="0.5"/>
-          <text x="14" y="119.5" font-size="4.5" fill="#4a4845" font-family="sans-serif">スコープ（対象外も明記）</text>
-          <text x="16" y="147" font-size="4" fill="#8a8880" font-family="sans-serif">何を・なぜ・どの範囲で改善するかを1枚で定義　Phase 3への起点</text>
-        </svg>
+        <div class="mock-title" style="background:#8c6a2a">改善テーマ定義書 ／ Phase 2</div>
+        <div class="mock-section">■ テーマ基本情報</div>
+        <div class="mock-row"><span class="mock-label">テーマ名称</span><span class="mock-input" style="color:var(--ink)">段取り時間の短縮（旋盤工程）</span></div>
+        <div class="mock-row"><span class="mock-label">対象工程・範囲</span><span class="mock-input">旋盤工程全般（外注除く）</span></div>
+        <div class="mock-section">■ 問題の定義</div>
+        <div class="mock-row"><span class="mock-label">現状（As-Is）</span><span class="mock-input">段取りに平均30分。標準不在</span></div>
+        <div class="mock-row"><span class="mock-label">目標（To-Be）</span><span class="mock-input" style="color:#2a7a4a">段取り15分以内を全員が実現</span></div>
+        <div class="mock-section">■ 目標・スコープ</div>
+        <div class="mock-row"><span class="mock-label">成功指標（KPI）</span><span class="mock-input">段取り時間 ≦ 15分 / 達成率90%</span></div>
+        <div class="mock-row"><span class="mock-label">スコープ外</span><span class="mock-input">設備投資・外注工程</span></div>
       </div>
       <div class="doc-info">
         <span class="doc-tag">Ph.2 — Excel</span>
@@ -686,46 +422,25 @@ main { max-width: 1200px; margin: 0 auto; padding: 64px 64px 120px; }
   </div>
   <div class="doc-grid">
 
-    <!-- あるべき姿定義書 -->
     <div class="doc-card">
       <div class="doc-preview">
-        <svg viewBox="0 0 260 160" xmlns="http://www.w3.org/2000/svg">
-          <rect width="260" height="160" fill="#eeecea"/>
-          <rect x="12" y="10" width="236" height="14" rx="2" fill="#2a7a4a"/>
-          <text x="16" y="21" font-size="7" fill="white" font-family="sans-serif">あるべき姿定義書 ／ Phase 3</text>
-          <!-- before/after comparison -->
-          <rect x="12" y="28" width="112" height="10" rx="1" fill="#4a4845"/>
-          <text x="68" y="35.5" font-size="5.5" fill="white" font-family="sans-serif" text-anchor="middle">現状（As-Is）</text>
-          <rect x="136" y="28" width="112" height="10" rx="1" fill="#2a7a4a"/>
-          <text x="192" y="35.5" font-size="5.5" fill="white" font-family="sans-serif" text-anchor="middle">あるべき姿（To-Be）</text>
-          <!-- rows -->
-          <rect x="12" y="38" width="112" height="16" fill="white" stroke="#d8d5ce" stroke-width="0.5"/>
-          <text x="16" y="44.5" font-size="4.5" fill="#4a4845" font-family="sans-serif">段取りに30分かかっている</text>
-          <rect x="136" y="38" width="112" height="16" fill="#e8f8ee" stroke="#2a7a4a" stroke-width="0.5"/>
-          <text x="140" y="44.5" font-size="4.5" fill="#2a7a4a" font-family="sans-serif">段取り15分以内を実現</text>
-          <rect x="12" y="54" width="112" height="16" fill="#fafaf8" stroke="#d8d5ce" stroke-width="0.5"/>
-          <text x="16" y="60.5" font-size="4.5" fill="#4a4845" font-family="sans-serif">口頭で指示・記録なし</text>
-          <rect x="136" y="54" width="112" height="16" fill="#e8f8ee" stroke="#2a7a4a" stroke-width="0.5"/>
-          <text x="140" y="60.5" font-size="4.5" fill="#2a7a4a" font-family="sans-serif">標準書に基づき文書化</text>
-          <rect x="12" y="70" width="112" height="16" fill="white" stroke="#d8d5ce" stroke-width="0.5"/>
-          <rect x="136" y="70" width="112" height="16" fill="#e8f8ee" stroke="#2a7a4a" stroke-width="0.5"/>
-          <!-- gap arrow -->
-          <line x1="124" y1="70" x2="136" y2="70" stroke="#d8d5ce" stroke-width="0.5" stroke-dasharray="2,1"/>
-          <!-- KPI section -->
-          <rect x="12" y="92" width="236" height="8" rx="1" fill="#1a1917"/>
-          <text x="15" y="98.5" font-size="5" fill="white" font-family="sans-serif">■ 成功基準・KPI</text>
-          <rect x="12" y="100" width="80" height="8" fill="#e8e7e2" stroke="#d8d5ce" stroke-width="0.5"/>
-          <rect x="92" y="100" width="60" height="8" fill="white" stroke="#d8d5ce" stroke-width="0.5"/>
-          <rect x="152" y="100" width="50" height="8" fill="white" stroke="#d8d5ce" stroke-width="0.5"/>
-          <rect x="202" y="100" width="46" height="8" fill="white" stroke="#d8d5ce" stroke-width="0.5"/>
-          <text x="14" y="106.5" font-size="4" fill="#4a4845" font-family="sans-serif">指標名</text>
-          <text x="94" y="106.5" font-size="4" fill="#4a4845" font-family="sans-serif">現状値</text>
-          <text x="154" y="106.5" font-size="4" fill="#4a4845" font-family="sans-serif">目標値</text>
-          <text x="204" y="106.5" font-size="4" fill="#4a4845" font-family="sans-serif">計測方法</text>
-          <rect x="12" y="108" width="236" height="7" fill="white" stroke="#d8d5ce" stroke-width="0.3"/>
-          <rect x="12" y="115" width="236" height="7" fill="#fafaf8" stroke="#d8d5ce" stroke-width="0.3"/>
-          <text x="16" y="147" font-size="4" fill="#8a8880" font-family="sans-serif">As-Is / To-Be 対比　成功基準・KPI欄付き　数値で合意する</text>
-        </svg>
+        <div class="mock-title" style="background:#2a7a4a">あるべき姿定義書 ／ Phase 3</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:4px;margin-bottom:6px">
+          <div class="mock-ba-hdr" style="background:#4a4845">現状（As-Is）</div>
+          <div class="mock-ba-hdr" style="background:#2a7a4a">あるべき姿（To-Be）</div>
+        </div>
+        <div class="mock-ba">
+          <div class="mock-ba-cell" style="background:#fafaf8;border:1px solid #d8d5ce;font-size:10.5px">段取りに30分かかっている</div>
+          <div class="mock-ba-cell" style="background:#e8f8ee;border:1px solid #2a7a4a;font-size:10.5px;color:#2a7a4a">段取り15分以内を実現</div>
+          <div class="mock-ba-cell" style="background:#fafaf8;border:1px solid #d8d5ce;font-size:10.5px">口頭で指示・記録なし</div>
+          <div class="mock-ba-cell" style="background:#e8f8ee;border:1px solid #2a7a4a;font-size:10.5px;color:#2a7a4a">標準書に基づき文書化</div>
+        </div>
+        <div class="mock-section" style="margin-top:8px">■ 成功基準・KPI</div>
+        <table class="mock-table">
+          <tr><th>指標名</th><th>現状値</th><th>目標値</th><th>計測方法</th></tr>
+          <tr><td>段取り時間</td><td>30分</td><td>15分</td><td>ストップウォッチ</td></tr>
+          <tr><td>達成率</td><td>—</td><td>90%</td><td>日報集計</td></tr>
+        </table>
       </div>
       <div class="doc-info">
         <span class="doc-tag">Ph.3 — Excel</span>
@@ -739,67 +454,19 @@ main { max-width: 1200px; margin: 0 auto; padding: 64px 64px 120px; }
       </div>
     </div>
 
-    <!-- 解決策比較表 -->
     <div class="doc-card">
       <div class="doc-preview">
-        <svg viewBox="0 0 260 160" xmlns="http://www.w3.org/2000/svg">
-          <rect width="260" height="160" fill="#eeecea"/>
-          <rect x="12" y="10" width="236" height="14" rx="2" fill="#2a7a4a"/>
-          <text x="16" y="21" font-size="7" fill="white" font-family="sans-serif">解決策比較表 ／ Phase 3</text>
-          <!-- comparison table -->
-          <rect x="12" y="28" width="60" height="9" fill="#4a4845"/>
-          <rect x="72" y="28" width="58" height="9" fill="#2a7a4a"/>
-          <rect x="130" y="28" width="58" height="9" fill="#2a7a4a" opacity="0.7"/>
-          <rect x="188" y="28" width="60" height="9" fill="#2a7a4a" opacity="0.4"/>
-          <text x="15" y="34.5" font-size="4.5" fill="white" font-family="sans-serif">評価項目</text>
-          <text x="75" y="34.5" font-size="4.5" fill="white" font-family="sans-serif">案A：自動化</text>
-          <text x="133" y="34.5" font-size="4.5" fill="white" font-family="sans-serif">案B：標準化</text>
-          <text x="191" y="34.5" font-size="4.5" fill="white" font-family="sans-serif">案C：教育強化</text>
-          <!-- rows -->
-          <rect x="12" y="37" width="60" height="9" fill="#e8e7e2" stroke="#d8d5ce" stroke-width="0.3"/>
-          <rect x="72" y="37" width="58" height="9" fill="white" stroke="#d8d5ce" stroke-width="0.3"/>
-          <rect x="130" y="37" width="58" height="9" fill="white" stroke="#d8d5ce" stroke-width="0.3"/>
-          <rect x="188" y="37" width="60" height="9" fill="white" stroke="#d8d5ce" stroke-width="0.3"/>
-          <text x="14" y="43.5" font-size="4" fill="#4a4845" font-family="sans-serif">効果（インパクト）</text>
-          <text x="91" y="43.5" font-size="5" fill="#2a7a4a" font-family="sans-serif" text-anchor="middle">◎</text>
-          <text x="159" y="43.5" font-size="5" fill="#8c6a2a" font-family="sans-serif" text-anchor="middle">○</text>
-          <text x="218" y="43.5" font-size="5" fill="#8a8880" font-family="sans-serif" text-anchor="middle">△</text>
-          <rect x="12" y="46" width="60" height="9" fill="#e8e7e2" stroke="#d8d5ce" stroke-width="0.3"/>
-          <rect x="72" y="46" width="58" height="9" fill="#fafaf8" stroke="#d8d5ce" stroke-width="0.3"/>
-          <rect x="130" y="46" width="58" height="9" fill="#fafaf8" stroke="#d8d5ce" stroke-width="0.3"/>
-          <rect x="188" y="46" width="60" height="9" fill="#fafaf8" stroke="#d8d5ce" stroke-width="0.3"/>
-          <text x="14" y="52.5" font-size="4" fill="#4a4845" font-family="sans-serif">導入コスト</text>
-          <text x="91" y="52.5" font-size="5" fill="#8c2a4a" font-family="sans-serif" text-anchor="middle">×</text>
-          <text x="159" y="52.5" font-size="5" fill="#2a7a4a" font-family="sans-serif" text-anchor="middle">◎</text>
-          <text x="218" y="52.5" font-size="5" fill="#2a7a4a" font-family="sans-serif" text-anchor="middle">◎</text>
-          <rect x="12" y="55" width="60" height="9" fill="#e8e7e2" stroke="#d8d5ce" stroke-width="0.3"/>
-          <rect x="72" y="55" width="58" height="9" fill="white" stroke="#d8d5ce" stroke-width="0.3"/>
-          <rect x="130" y="55" width="58" height="9" fill="white" stroke="#d8d5ce" stroke-width="0.3"/>
-          <rect x="188" y="55" width="60" height="9" fill="white" stroke="#d8d5ce" stroke-width="0.3"/>
-          <text x="14" y="61.5" font-size="4" fill="#4a4845" font-family="sans-serif">導入期間</text>
-          <text x="91" y="61.5" font-size="5" fill="#8c2a4a" font-family="sans-serif" text-anchor="middle">×</text>
-          <text x="159" y="61.5" font-size="5" fill="#8c6a2a" font-family="sans-serif" text-anchor="middle">○</text>
-          <text x="218" y="61.5" font-size="5" fill="#2a7a4a" font-family="sans-serif" text-anchor="middle">◎</text>
-          <rect x="12" y="64" width="60" height="9" fill="#e8e7e2" stroke="#d8d5ce" stroke-width="0.3"/>
-          <rect x="72" y="64" width="58" height="9" fill="#fafaf8" stroke="#d8d5ce" stroke-width="0.3"/>
-          <rect x="130" y="64" width="58" height="9" fill="#fafaf8" stroke="#d8d5ce" stroke-width="0.3"/>
-          <rect x="188" y="64" width="60" height="9" fill="#fafaf8" stroke="#d8d5ce" stroke-width="0.3"/>
-          <text x="14" y="70.5" font-size="4" fill="#4a4845" font-family="sans-serif">現場への負荷</text>
-          <!-- total score -->
-          <rect x="12" y="73" width="60" height="9" fill="#1a1917"/>
-          <rect x="72" y="73" width="58" height="9" fill="#1a1917"/>
-          <rect x="130" y="73" width="58" height="9" fill="#2a7a4a"/>
-          <rect x="188" y="73" width="60" height="9" fill="#1a1917"/>
-          <text x="14" y="79.5" font-size="4.5" fill="white" font-family="sans-serif">総合スコア</text>
-          <text x="91" y="79.5" font-size="4.5" fill="white" font-family="sans-serif" text-anchor="middle">6/20</text>
-          <text x="159" y="79.5" font-size="4.5" fill="white" font-family="sans-serif" text-anchor="middle">14/20 ←採用</text>
-          <text x="218" y="79.5" font-size="4.5" fill="white" font-family="sans-serif" text-anchor="middle">12/20</text>
-          <!-- memo -->
-          <rect x="12" y="86" width="236" height="8" rx="1" fill="#1a1917"/>
-          <text x="15" y="92.5" font-size="5" fill="white" font-family="sans-serif">■ 採用案の根拠・不採用案の理由</text>
-          <rect x="12" y="94" width="236" height="20" fill="white" stroke="#d8d5ce" stroke-width="0.5"/>
-          <text x="16" y="147" font-size="4" fill="#8a8880" font-family="sans-serif">複数案を◎○△×で評価　総合スコア自動計算　採用根拠を記録</text>
-        </svg>
+        <div class="mock-title" style="background:#2a7a4a">解決策比較表 ／ Phase 3</div>
+        <table class="mock-table">
+          <tr><th>評価項目</th><th>案A：自動化</th><th style="background:#2a7a4a">案B：標準化</th><th>案C：教育</th></tr>
+          <tr><td>効果（インパクト）</td><td style="text-align:center">◎</td><td style="text-align:center;background:#e8f8ee">◎</td><td style="text-align:center">○</td></tr>
+          <tr><td>導入コスト</td><td style="text-align:center;color:#8c2a4a">×</td><td style="text-align:center;background:#e8f8ee">◎</td><td style="text-align:center">◎</td></tr>
+          <tr><td>導入期間</td><td style="text-align:center;color:#8c2a4a">×</td><td style="text-align:center;background:#e8f8ee">○</td><td style="text-align:center">◎</td></tr>
+          <tr><td>現場への負荷</td><td style="text-align:center">○</td><td style="text-align:center;background:#e8f8ee">○</td><td style="text-align:center;color:#8c2a4a">×</td></tr>
+          <tr style="font-weight:600"><td>総合スコア</td><td style="text-align:center">6/20</td><td style="text-align:center;background:#2a7a4a;color:white">14/20 ✓採用</td><td style="text-align:center">12/20</td></tr>
+        </table>
+        <div class="mock-section" style="margin-top:8px">■ 採用案の根拠・不採用理由</div>
+        <div class="mock-row"><span class="mock-input" style="min-height:28px"></span></div>
       </div>
       <div class="doc-info">
         <span class="doc-tag">Ph.3 — Excel</span>
@@ -813,48 +480,20 @@ main { max-width: 1200px; margin: 0 auto; padding: 64px 64px 120px; }
       </div>
     </div>
 
-    <!-- 実施計画書 -->
     <div class="doc-card">
       <div class="doc-preview">
-        <svg viewBox="0 0 260 160" xmlns="http://www.w3.org/2000/svg">
-          <rect width="260" height="160" fill="#eeecea"/>
-          <rect x="12" y="10" width="236" height="14" rx="2" fill="#2a7a4a"/>
-          <text x="16" y="21" font-size="7" fill="white" font-family="sans-serif">実施計画書 ／ Phase 3</text>
-          <!-- WBS table -->
-          <rect x="12" y="28" width="236" height="8" rx="1" fill="#1a1917"/>
-          <text x="15" y="34.5" font-size="5" fill="white" font-family="sans-serif">■ WBS・ガントチャート</text>
-          <!-- gantt header months -->
-          <rect x="12" y="36" width="72" height="8" fill="#4a4845"/>
-          <rect x="84" y="36" width="164" height="8" fill="#4a4845"/>
-          <text x="15" y="42.5" font-size="4" fill="white" font-family="sans-serif">タスク名</text>
-          <text x="86" y="42.5" font-size="4" fill="white" font-family="sans-serif">Week1　　Week2　　Week3　　Week4　　Week5</text>
-          <!-- gantt rows -->
-          <rect x="12" y="44" width="72" height="8" fill="#e8e7e2" stroke="#d8d5ce" stroke-width="0.3"/>
-          <text x="14" y="50" font-size="4" fill="#4a4845" font-family="sans-serif">1. 準備・環境整備</text>
-          <rect x="84" y="44" width="50" height="8" fill="#2a7a4a" opacity="0.7" rx="1"/>
-          <rect x="12" y="52" width="72" height="8" fill="white" stroke="#d8d5ce" stroke-width="0.3"/>
-          <text x="14" y="58" font-size="4" fill="#4a4845" font-family="sans-serif">2. パイロット実施</text>
-          <rect x="116" y="52" width="66" height="8" fill="#2a7a4a" opacity="0.7" rx="1"/>
-          <rect x="12" y="60" width="72" height="8" fill="#fafaf8" stroke="#d8d5ce" stroke-width="0.3"/>
-          <text x="14" y="66" font-size="4" fill="#4a4845" font-family="sans-serif">3. 効果測定</text>
-          <rect x="165" y="60" width="34" height="8" fill="#2a7a4a" opacity="0.7" rx="1"/>
-          <rect x="12" y="68" width="72" height="8" fill="white" stroke="#d8d5ce" stroke-width="0.3"/>
-          <text x="14" y="74" font-size="4" fill="#4a4845" font-family="sans-serif">4. 標準化・引き渡し</text>
-          <rect x="200" y="68" width="48" height="8" fill="#2a7a4a" opacity="0.7" rx="1"/>
-          <!-- scope/resource -->
-          <rect x="12" y="82" width="236" height="8" rx="1" fill="#1a1917"/>
-          <text x="15" y="88.5" font-size="5" fill="white" font-family="sans-serif">■ スコープ・担当・リソース</text>
-          <rect x="12" y="90" width="116" height="9" fill="#e8e7e2" stroke="#d8d5ce" stroke-width="0.5"/>
-          <rect x="128" y="90" width="120" height="9" fill="white" stroke="#d8d5ce" stroke-width="0.5"/>
-          <text x="14" y="96.5" font-size="4.5" fill="#4a4845" font-family="sans-serif">スコープ（対象・対象外）</text>
-          <rect x="12" y="99" width="116" height="9" fill="white" stroke="#d8d5ce" stroke-width="0.5"/>
-          <rect x="128" y="99" width="120" height="9" fill="#fafaf8" stroke="#d8d5ce" stroke-width="0.5"/>
-          <text x="14" y="105.5" font-size="4.5" fill="#4a4845" font-family="sans-serif">担当者・役割分担</text>
-          <rect x="12" y="108" width="116" height="9" fill="#fafaf8" stroke="#d8d5ce" stroke-width="0.5"/>
-          <rect x="128" y="108" width="120" height="9" fill="white" stroke="#d8d5ce" stroke-width="0.5"/>
-          <text x="14" y="114.5" font-size="4.5" fill="#4a4845" font-family="sans-serif">必要リソース・予算</text>
-          <text x="16" y="147" font-size="4" fill="#8a8880" font-family="sans-serif">WBS・ガントチャート・スコープ・担当・リソースを1枚に集約</text>
-        </svg>
+        <div class="mock-title" style="background:#2a7a4a">実施計画書 ／ Phase 3</div>
+        <div class="mock-section">■ WBS・ガントチャート</div>
+        <table class="mock-table" style="margin-bottom:6px">
+          <tr><th style="width:110px">タスク名</th><th>W1</th><th>W2</th><th>W3</th><th>W4</th><th>W5</th></tr>
+          <tr><td>1. 準備・環境整備</td><td style="background:#2a7a4a;opacity:.7"></td><td style="background:#2a7a4a;opacity:.7"></td><td></td><td></td><td></td></tr>
+          <tr><td>2. パイロット実施</td><td></td><td></td><td style="background:#2a7a4a;opacity:.7"></td><td style="background:#2a7a4a;opacity:.7"></td><td></td></tr>
+          <tr><td>3. 効果測定</td><td></td><td></td><td></td><td style="background:#2a7a4a;opacity:.7"></td><td style="background:#2a7a4a;opacity:.7"></td></tr>
+          <tr><td>4. 標準化・引き渡し</td><td></td><td></td><td></td><td></td><td style="background:#2a7a4a;opacity:.7"></td></tr>
+        </table>
+        <div class="mock-section">■ スコープ・担当・リソース</div>
+        <div class="mock-row"><span class="mock-label">スコープ（対象・対象外）</span><span class="mock-input"></span></div>
+        <div class="mock-row"><span class="mock-label">担当者・役割分担</span><span class="mock-input"></span></div>
       </div>
       <div class="doc-info">
         <span class="doc-tag">Ph.3 — Excel</span>
@@ -880,51 +519,22 @@ main { max-width: 1200px; margin: 0 auto; padding: 64px 64px 120px; }
   </div>
   <div class="doc-grid">
 
-    <!-- パイロット実施記録 -->
     <div class="doc-card">
       <div class="doc-preview">
-        <svg viewBox="0 0 260 160" xmlns="http://www.w3.org/2000/svg">
-          <rect width="260" height="160" fill="#eeecea"/>
-          <rect x="12" y="10" width="236" height="14" rx="2" fill="#8c2a4a"/>
-          <text x="16" y="21" font-size="7" fill="white" font-family="sans-serif">パイロット実施記録 ／ Phase 4</text>
-          <!-- log table -->
-          <rect x="12" y="28" width="236" height="8" rx="1" fill="#1a1917"/>
-          <text x="15" y="34.5" font-size="5" fill="white" font-family="sans-serif">■ 実施ログ</text>
-          <rect x="12" y="36" width="22" height="8" fill="#4a4845"/>
-          <rect x="34" y="36" width="30" height="8" fill="#4a4845"/>
-          <rect x="64" y="36" width="80" height="8" fill="#4a4845"/>
-          <rect x="144" y="36" width="50" height="8" fill="#4a4845"/>
-          <rect x="194" y="36" width="54" height="8" fill="#4a4845"/>
-          <text x="14" y="42" font-size="4" fill="white" font-family="sans-serif">日付</text>
-          <text x="36" y="42" font-size="4" fill="white" font-family="sans-serif">担当</text>
-          <text x="66" y="42" font-size="4" fill="white" font-family="sans-serif">実施内容</text>
-          <text x="146" y="42" font-size="4" fill="white" font-family="sans-serif">結果・気づき</text>
-          <text x="196" y="42" font-size="4" fill="white" font-family="sans-serif">次のアクション</text>
-          <rect x="12" y="44" width="236" height="7" fill="white" stroke="#d8d5ce" stroke-width="0.3"/>
-          <text x="14" y="49.5" font-size="3.5" fill="#4a4845" font-family="sans-serif">5/1　Aさん　治具セットを試験導入　→段取15分に短縮　固定方法を再検討</text>
-          <rect x="12" y="51" width="236" height="7" fill="#fafaf8" stroke="#d8d5ce" stroke-width="0.3"/>
-          <text x="14" y="56.5" font-size="3.5" fill="#4a4845" font-family="sans-serif">5/2　Bさん　同手順で実施　→20分かかった　スキル差の影響を確認</text>
-          <rect x="12" y="58" width="236" height="7" fill="white" stroke="#d8d5ce" stroke-width="0.3"/>
-          <rect x="12" y="65" width="236" height="7" fill="#fafaf8" stroke="#d8d5ce" stroke-width="0.3"/>
-          <rect x="12" y="72" width="236" height="7" fill="white" stroke="#d8d5ce" stroke-width="0.3"/>
-          <!-- issue log -->
-          <rect x="12" y="84" width="236" height="8" rx="1" fill="#1a1917"/>
-          <text x="15" y="90.5" font-size="5" fill="white" font-family="sans-serif">■ 問題ログ</text>
-          <rect x="12" y="92" width="16" height="8" fill="#4a4845"/>
-          <rect x="28" y="92" width="70" height="8" fill="#4a4845"/>
-          <rect x="98" y="92" width="40" height="8" fill="#4a4845"/>
-          <rect x="138" y="92" width="40" height="8" fill="#4a4845"/>
-          <rect x="178" y="92" width="70" height="8" fill="#4a4845"/>
-          <text x="14" y="98" font-size="3.5" fill="white" font-family="sans-serif">No.</text>
-          <text x="30" y="98" font-size="3.5" fill="white" font-family="sans-serif">問題内容</text>
-          <text x="100" y="98" font-size="3.5" fill="white" font-family="sans-serif">影響度</text>
-          <text x="140" y="98" font-size="3.5" fill="white" font-family="sans-serif">対処方法</text>
-          <text x="180" y="98" font-size="3.5" fill="white" font-family="sans-serif">ステータス</text>
-          <rect x="12" y="100" width="236" height="7" fill="white" stroke="#d8d5ce" stroke-width="0.3"/>
-          <rect x="12" y="107" width="236" height="7" fill="#fafaf8" stroke="#d8d5ce" stroke-width="0.3"/>
-          <rect x="12" y="114" width="236" height="7" fill="white" stroke="#d8d5ce" stroke-width="0.3"/>
-          <text x="16" y="147" font-size="4" fill="#8a8880" font-family="sans-serif">実施ログ・問題ログ・中間評価を一体管理　日次で更新</text>
-        </svg>
+        <div class="mock-title" style="background:#8c2a4a">パイロット実施記録 ／ Phase 4</div>
+        <div class="mock-section">■ 実施ログ</div>
+        <table class="mock-table" style="margin-bottom:6px">
+          <tr><th>日付</th><th>担当</th><th>実施内容</th><th>結果・気づき</th></tr>
+          <tr><td>5/1</td><td>Aさん</td><td>治具セット試験導入</td><td>段取15分に短縮</td></tr>
+          <tr><td>5/2</td><td>Bさん</td><td>同手順で実施</td><td>20分→スキル差確認</td></tr>
+          <tr><td>5/3</td><td>Aさん</td><td>手順書を修正</td><td>全員15分以内達成</td></tr>
+        </table>
+        <div class="mock-section">■ 問題ログ</div>
+        <table class="mock-table">
+          <tr><th>No.</th><th>問題内容</th><th>影響度</th><th>ステータス</th></tr>
+          <tr><td>1</td><td>治具固定方法が不明確</td><td style="text-align:center">中</td><td style="background:#e8f8ee;color:#2a7a4a;text-align:center">解決済</td></tr>
+          <tr><td>2</td><td>Bさんの手順理解不足</td><td style="text-align:center">中</td><td style="background:#e8f8ee;color:#2a7a4a;text-align:center">解決済</td></tr>
+        </table>
       </div>
       <div class="doc-info">
         <span class="doc-tag">Ph.4 — Excel</span>
@@ -938,61 +548,21 @@ main { max-width: 1200px; margin: 0 auto; padding: 64px 64px 120px; }
       </div>
     </div>
 
-    <!-- 効果測定シート -->
     <div class="doc-card">
       <div class="doc-preview">
-        <svg viewBox="0 0 260 160" xmlns="http://www.w3.org/2000/svg">
-          <rect width="260" height="160" fill="#eeecea"/>
-          <rect x="12" y="10" width="236" height="14" rx="2" fill="#8c2a4a"/>
-          <text x="16" y="21" font-size="7" fill="white" font-family="sans-serif">効果測定シート ／ Phase 4</text>
-          <!-- before after table -->
-          <rect x="12" y="28" width="236" height="8" rx="1" fill="#1a1917"/>
-          <text x="15" y="34.5" font-size="5" fill="white" font-family="sans-serif">■ Before / After 比較</text>
-          <rect x="12" y="36" width="70" height="8" fill="#4a4845"/>
-          <rect x="82" y="36" width="50" height="8" fill="#4a4845"/>
-          <rect x="132" y="36" width="50" height="8" fill="#8c2a4a"/>
-          <rect x="182" y="36" width="40" height="8" fill="#2a7a4a"/>
-          <rect x="222" y="36" width="26" height="8" fill="#4a4845"/>
-          <text x="14" y="42" font-size="4" fill="white" font-family="sans-serif">指標</text>
-          <text x="84" y="42" font-size="4" fill="white" font-family="sans-serif">Before</text>
-          <text x="134" y="42" font-size="4" fill="white" font-family="sans-serif">After</text>
-          <text x="184" y="42" font-size="4" fill="white" font-family="sans-serif">改善率</text>
-          <text x="224" y="42" font-size="4" fill="white" font-family="sans-serif">目標</text>
-          <rect x="12" y="44" width="70" height="8" fill="#e8e7e2" stroke="#d8d5ce" stroke-width="0.3"/>
-          <rect x="82" y="44" width="50" height="8" fill="white" stroke="#d8d5ce" stroke-width="0.3"/>
-          <rect x="132" y="44" width="50" height="8" fill="white" stroke="#d8d5ce" stroke-width="0.3"/>
-          <rect x="182" y="44" width="40" height="8" fill="#e8f8ee" stroke="#d8d5ce" stroke-width="0.3"/>
-          <rect x="222" y="44" width="26" height="8" fill="white" stroke="#d8d5ce" stroke-width="0.3"/>
-          <text x="14" y="50" font-size="4" fill="#4a4845" font-family="sans-serif">段取り時間（分）</text>
-          <text x="103" y="50" font-size="4.5" fill="#4a4845" font-family="sans-serif" text-anchor="middle">32</text>
-          <text x="153" y="50" font-size="4.5" fill="#4a4845" font-family="sans-serif" text-anchor="middle">14</text>
-          <text x="200" y="50" font-size="4.5" fill="#2a7a4a" font-family="sans-serif" text-anchor="middle">▼56%</text>
-          <text x="231" y="50" font-size="4.5" fill="#4a4845" font-family="sans-serif" text-anchor="middle">50%</text>
-          <rect x="12" y="52" width="70" height="8" fill="white" stroke="#d8d5ce" stroke-width="0.3"/>
-          <rect x="82" y="52" width="50" height="8" fill="#fafaf8" stroke="#d8d5ce" stroke-width="0.3"/>
-          <rect x="132" y="52" width="50" height="8" fill="#fafaf8" stroke="#d8d5ce" stroke-width="0.3"/>
-          <rect x="182" y="52" width="40" height="8" fill="#e8f8ee" stroke="#d8d5ce" stroke-width="0.3"/>
-          <rect x="222" y="52" width="26" height="8" fill="#fafaf8" stroke="#d8d5ce" stroke-width="0.3"/>
-          <text x="14" y="58" font-size="4" fill="#4a4845" font-family="sans-serif">不良率（%）</text>
-          <text x="103" y="58" font-size="4.5" fill="#4a4845" font-family="sans-serif" text-anchor="middle">3.2</text>
-          <text x="153" y="58" font-size="4.5" fill="#4a4845" font-family="sans-serif" text-anchor="middle">1.8</text>
-          <text x="200" y="58" font-size="4.5" fill="#2a7a4a" font-family="sans-serif" text-anchor="middle">▼44%</text>
-          <rect x="12" y="60" width="70" height="8" fill="#e8e7e2" stroke="#d8d5ce" stroke-width="0.3"/>
-          <rect x="82" y="60" width="50" height="8" fill="white" stroke="#d8d5ce" stroke-width="0.3"/>
-          <rect x="132" y="60" width="50" height="8" fill="white" stroke="#d8d5ce" stroke-width="0.3"/>
-          <rect x="182" y="60" width="40" height="8" fill="white" stroke="#d8d5ce" stroke-width="0.3"/>
-          <rect x="222" y="60" width="26" height="8" fill="white" stroke="#d8d5ce" stroke-width="0.3"/>
-          <!-- summary -->
-          <rect x="12" y="74" width="236" height="8" rx="1" fill="#1a1917"/>
-          <text x="15" y="80.5" font-size="5" fill="white" font-family="sans-serif">■ 目標達成判定</text>
-          <rect x="12" y="82" width="116" height="30" fill="white" stroke="#d8d5ce" stroke-width="0.5"/>
-          <text x="70" y="92" font-size="5" fill="#2a7a4a" font-family="sans-serif" text-anchor="middle">✓ 目標達成</text>
-          <text x="70" y="102" font-size="4" fill="#8a8880" font-family="sans-serif" text-anchor="middle">次フェーズへ進む</text>
-          <rect x="132" y="82" width="116" height="30" fill="white" stroke="#d8d5ce" stroke-width="0.5"/>
-          <text x="190" y="92" font-size="5" fill="#8c2a4a" font-family="sans-serif" text-anchor="middle">△ 部分達成</text>
-          <text x="190" y="102" font-size="4" fill="#8a8880" font-family="sans-serif" text-anchor="middle">修正して継続</text>
-          <text x="16" y="147" font-size="4" fill="#8a8880" font-family="sans-serif">Before/After比較・改善率自動計算・目標達成判定まで一体管理</text>
-        </svg>
+        <div class="mock-title" style="background:#8c2a4a">効果測定シート ／ Phase 4</div>
+        <div class="mock-section">■ Before / After 比較</div>
+        <table class="mock-table" style="margin-bottom:8px">
+          <tr><th>指標</th><th>Before</th><th style="background:#8c2a4a">After</th><th style="background:#2a7a4a">改善率</th><th>目標</th></tr>
+          <tr><td>段取り時間（分）</td><td style="text-align:center">32</td><td style="text-align:center;background:#f8e8ee">14</td><td style="text-align:center;background:#e8f8ee;color:#2a7a4a;font-weight:600">▼56%</td><td style="text-align:center">50%</td></tr>
+          <tr><td>不良率（%）</td><td style="text-align:center">3.2</td><td style="text-align:center;background:#f8e8ee">1.8</td><td style="text-align:center;background:#e8f8ee;color:#2a7a4a;font-weight:600">▼44%</td><td style="text-align:center">30%</td></tr>
+          <tr><td>リードタイム（日）</td><td style="text-align:center">5.0</td><td style="text-align:center;background:#f8e8ee">3.8</td><td style="text-align:center;background:#e8f8ee;color:#2a7a4a;font-weight:600">▼24%</td><td style="text-align:center">20%</td></tr>
+        </table>
+        <div class="mock-section">■ 目標達成判定</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:4px;margin-top:6px">
+          <div style="background:#e8f8ee;border:1px solid #2a7a4a;border-radius:3px;padding:8px;text-align:center;font-size:11px;color:#2a7a4a;font-weight:600">✓ 段取り：目標達成<br><span style="font-weight:400;font-size:10px">次フェーズへ進む</span></div>
+          <div style="background:#f8f0e8;border:1px solid #8c6a2a;border-radius:3px;padding:8px;text-align:center;font-size:11px;color:#8c6a2a;font-weight:600">△ 不良率：継続改善<br><span style="font-weight:400;font-size:10px">修正して継続</span></div>
+        </div>
       </div>
       <div class="doc-info">
         <span class="doc-tag">Ph.4 — Excel</span>
@@ -1018,49 +588,26 @@ main { max-width: 1200px; margin: 0 auto; padding: 64px 64px 120px; }
   </div>
   <div class="doc-grid">
 
-    <!-- SOP -->
     <div class="doc-card">
       <div class="doc-preview">
-        <svg viewBox="0 0 260 160" xmlns="http://www.w3.org/2000/svg">
-          <rect width="260" height="160" fill="#eeecea"/>
-          <rect x="12" y="10" width="236" height="14" rx="2" fill="#5a2a8c"/>
-          <text x="16" y="21" font-size="7" fill="white" font-family="sans-serif">標準作業手順書（SOP） ／ Phase 5</text>
-          <!-- header info -->
-          <rect x="12" y="28" width="116" height="8" fill="#e8e7e2" stroke="#d8d5ce" stroke-width="0.5"/>
-          <rect x="130" y="28" width="116" height="8" fill="white" stroke="#d8d5ce" stroke-width="0.5"/>
-          <text x="14" y="34" font-size="4" fill="#4a4845" font-family="sans-serif">作業名：段取り作業（旋盤）</text>
-          <rect x="12" y="36" width="56" height="8" fill="#e8e7e2" stroke="#d8d5ce" stroke-width="0.5"/>
-          <rect x="68" y="36" width="60" height="8" fill="white" stroke="#d8d5ce" stroke-width="0.5"/>
-          <rect x="130" y="36" width="50" height="8" fill="#e8e7e2" stroke="#d8d5ce" stroke-width="0.5"/>
-          <rect x="180" y="36" width="66" height="8" fill="white" stroke="#d8d5ce" stroke-width="0.5"/>
-          <text x="14" y="42" font-size="4" fill="#4a4845" font-family="sans-serif">対象工程：旋盤</text>
-          <text x="132" y="42" font-size="4" fill="#4a4845" font-family="sans-serif">標準時間：15分</text>
-          <!-- steps -->
-          <rect x="12" y="48" width="236" height="8" rx="1" fill="#1a1917"/>
-          <text x="15" y="54.5" font-size="5" fill="white" font-family="sans-serif">■ 作業手順</text>
-          <!-- step cards -->
-          <rect x="12" y="58" width="14" height="14" rx="2" fill="#5a2a8c"/>
-          <text x="19" y="67.5" font-size="6" fill="white" font-family="sans-serif" text-anchor="middle">1</text>
-          <rect x="28" y="58" width="220" height="14" fill="white" stroke="#d8d5ce" stroke-width="0.5"/>
-          <text x="31" y="65" font-size="4.5" fill="#1a1917" font-family="sans-serif">治具をセットする（位置：マーキング線に合わせる）</text>
-          <text x="31" y="70" font-size="4" fill="#8a8880" font-family="sans-serif">ポイント：ガタつきを指で確認。トルク：手締め後1/4回転</text>
-
-          <rect x="12" y="74" width="14" height="14" rx="2" fill="#5a2a8c"/>
-          <text x="19" y="83.5" font-size="6" fill="white" font-family="sans-serif" text-anchor="middle">2</text>
-          <rect x="28" y="74" width="220" height="14" fill="white" stroke="#d8d5ce" stroke-width="0.5"/>
-          <text x="31" y="81" font-size="4.5" fill="#1a1917" font-family="sans-serif">ワークをチャッキングする</text>
-          <text x="31" y="86" font-size="4" fill="#8a8880" font-family="sans-serif">ポイント：3点当たりを確認してからチャック</text>
-
-          <rect x="12" y="90" width="14" height="14" rx="2" fill="#5a2a8c"/>
-          <text x="19" y="99.5" font-size="6" fill="white" font-family="sans-serif" text-anchor="middle">3</text>
-          <rect x="28" y="90" width="220" height="14" fill="white" stroke="#d8d5ce" stroke-width="0.5"/>
-          <text x="31" y="97" font-size="4.5" fill="#1a1917" font-family="sans-serif">工具を取り付ける</text>
-          <text x="31" y="102" font-size="4" fill="#8a8880" font-family="sans-serif">使用工具：バイト#12　突き出し量：20mm</text>
-
-          <rect x="12" y="106" width="14" height="14" rx="2" fill="#5a2a8c" opacity="0.4"/>
-          <rect x="28" y="106" width="220" height="14" fill="#fafaf8" stroke="#d8d5ce" stroke-width="0.5"/>
-          <text x="16" y="147" font-size="4" fill="#8a8880" font-family="sans-serif">手順・ポイント・使用工具・注意事項を番号付きステップで記述</text>
-        </svg>
+        <div class="mock-title" style="background:#5a2a8c">標準作業手順書（SOP） ／ Phase 5</div>
+        <div class="mock-row" style="margin-bottom:6px">
+          <span class="mock-label">作業名</span><span class="mock-input" style="color:var(--ink)">段取り作業（旋盤）</span>
+          <span class="mock-label" style="margin-left:4px">標準時間</span><span class="mock-input" style="color:var(--ink);max-width:50px">15分</span>
+        </div>
+        <div class="mock-section">■ 作業手順</div>
+        <div class="mock-step">
+          <div class="mock-step-num">1</div>
+          <div class="mock-step-body">治具をセットする（位置：マーキング線に合わせる）<div class="pt">ポイント：ガタつきを指で確認。トルク：手締め後1/4回転</div></div>
+        </div>
+        <div class="mock-step">
+          <div class="mock-step-num">2</div>
+          <div class="mock-step-body">ワークをチャッキングする<div class="pt">ポイント：3点当たりを確認してからチャック</div></div>
+        </div>
+        <div class="mock-step">
+          <div class="mock-step-num">3</div>
+          <div class="mock-step-body">工具を取り付ける<div class="pt">使用工具：バイト#12　突き出し量：20mm</div></div>
+        </div>
       </div>
       <div class="doc-info">
         <span class="doc-tag">Ph.5 — Excel</span>
@@ -1074,44 +621,20 @@ main { max-width: 1200px; margin: 0 auto; padding: 64px 64px 120px; }
       </div>
     </div>
 
-    <!-- 引き渡し確認CL -->
     <div class="doc-card">
       <div class="doc-preview">
-        <svg viewBox="0 0 260 160" xmlns="http://www.w3.org/2000/svg">
-          <rect width="260" height="160" fill="#eeecea"/>
-          <rect x="12" y="10" width="236" height="14" rx="2" fill="#5a2a8c"/>
-          <text x="16" y="21" font-size="7" fill="white" font-family="sans-serif">引き渡し確認チェックリスト ／ Phase 5</text>
-          <!-- checklist -->
-          <rect x="12" y="28" width="236" height="8" rx="1" fill="#1a1917"/>
-          <text x="15" y="34.5" font-size="5" fill="white" font-family="sans-serif">■ 引き渡し確認項目</text>
-          <!-- check items -->
-          <rect x="12" y="36" width="236" height="7" fill="white" stroke="#d8d5ce" stroke-width="0.3"/>
-          <rect x="14" y="37.5" width="4" height="4" rx="0.5" fill="#2a7a4a"/>
-          <text x="21" y="42" font-size="4.5" fill="#4a4845" font-family="sans-serif">SOPが作成・承認されている</text>
-          <rect x="12" y="43" width="236" height="7" fill="#fafaf8" stroke="#d8d5ce" stroke-width="0.3"/>
-          <rect x="14" y="44.5" width="4" height="4" rx="0.5" fill="#2a7a4a"/>
-          <text x="21" y="49" font-size="4.5" fill="#4a4845" font-family="sans-serif">担当者がSOPに沿って作業できることを確認した</text>
-          <rect x="12" y="50" width="236" height="7" fill="white" stroke="#d8d5ce" stroke-width="0.3"/>
-          <rect x="14" y="51.5" width="4" height="4" rx="0.5" fill="#2a7a4a"/>
-          <text x="21" y="56" font-size="4.5" fill="#4a4845" font-family="sans-serif">OJTを実施した（実施日：　　　　　　）</text>
-          <rect x="12" y="57" width="236" height="7" fill="#fafaf8" stroke="#d8d5ce" stroke-width="0.3"/>
-          <rect x="14" y="58.5" width="4" height="4" rx="0.5" fill="none" stroke="#d8d5ce" stroke-width="0.5"/>
-          <text x="21" y="63" font-size="4.5" fill="#4a4845" font-family="sans-serif">定着モニタリングの担当者・頻度が決まっている</text>
-          <rect x="12" y="64" width="236" height="7" fill="white" stroke="#d8d5ce" stroke-width="0.3"/>
-          <rect x="14" y="65.5" width="4" height="4" rx="0.5" fill="none" stroke="#d8d5ce" stroke-width="0.5"/>
-          <text x="21" y="70" font-size="4.5" fill="#4a4845" font-family="sans-serif">問題発生時の連絡フローが決まっている</text>
-          <rect x="12" y="71" width="236" height="7" fill="#fafaf8" stroke="#d8d5ce" stroke-width="0.3"/>
-          <rect x="14" y="72.5" width="4" height="4" rx="0.5" fill="none" stroke="#d8d5ce" stroke-width="0.5"/>
-          <text x="21" y="77" font-size="4.5" fill="#4a4845" font-family="sans-serif">効果測定の継続方法が決まっている</text>
-          <!-- sign off -->
-          <rect x="12" y="84" width="236" height="8" rx="1" fill="#1a1917"/>
-          <text x="15" y="90.5" font-size="5" fill="white" font-family="sans-serif">■ 引き渡し合意・サインオフ</text>
-          <rect x="12" y="92" width="114" height="24" fill="white" stroke="#d8d5ce" stroke-width="0.5"/>
-          <text x="69" y="102" font-size="5" fill="#8a8880" font-family="sans-serif" text-anchor="middle">支援者サイン</text>
-          <rect x="130" y="92" width="116" height="24" fill="white" stroke="#d8d5ce" stroke-width="0.5"/>
-          <text x="188" y="102" font-size="5" fill="#8a8880" font-family="sans-serif" text-anchor="middle">現場担当者サイン</text>
-          <text x="16" y="147" font-size="4" fill="#8a8880" font-family="sans-serif">引き渡し完了条件をチェックリスト化　サインオフ欄付き</text>
-        </svg>
+        <div class="mock-title" style="background:#5a2a8c">引き渡し確認チェックリスト ／ Phase 5</div>
+        <div class="mock-section">■ 引き渡し確認項目</div>
+        <div class="mock-check"><div class="mock-check-box done">✓</div>SOPが作成・承認されている</div>
+        <div class="mock-check"><div class="mock-check-box done">✓</div>担当者がSOPに沿って作業できることを確認した</div>
+        <div class="mock-check"><div class="mock-check-box done">✓</div>OJTを実施した（実施日：5/10）</div>
+        <div class="mock-check"><div class="mock-check-box"></div>定着モニタリングの担当者・頻度が決まっている</div>
+        <div class="mock-check"><div class="mock-check-box"></div>問題発生時の連絡フローが決まっている</div>
+        <div class="mock-section" style="margin-top:8px">■ 引き渡し合意・サインオフ</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:4px;margin-top:6px">
+          <div style="background:white;border:1px solid #d8d5ce;border-radius:2px;padding:12px;text-align:center;font-size:10.5px;color:#aaa">支援者サイン</div>
+          <div style="background:white;border:1px solid #d8d5ce;border-radius:2px;padding:12px;text-align:center;font-size:10.5px;color:#aaa">現場担当者サイン</div>
+        </div>
       </div>
       <div class="doc-info">
         <span class="doc-tag">Ph.5 — Excel</span>
@@ -1125,56 +648,20 @@ main { max-width: 1200px; margin: 0 auto; padding: 64px 64px 120px; }
       </div>
     </div>
 
-    <!-- 横展開検討メモ -->
     <div class="doc-card">
       <div class="doc-preview">
-        <svg viewBox="0 0 260 160" xmlns="http://www.w3.org/2000/svg">
-          <rect width="260" height="160" fill="#eeecea"/>
-          <rect x="12" y="10" width="236" height="14" rx="2" fill="#5a2a8c"/>
-          <text x="16" y="21" font-size="7" fill="white" font-family="sans-serif">横展開検討メモ ／ Phase 5</text>
-          <!-- expansion table -->
-          <rect x="12" y="28" width="236" height="8" rx="1" fill="#1a1917"/>
-          <text x="15" y="34.5" font-size="5" fill="white" font-family="sans-serif">■ 横展開候補の整理</text>
-          <rect x="12" y="36" width="70" height="8" fill="#4a4845"/>
-          <rect x="82" y="36" width="50" height="8" fill="#4a4845"/>
-          <rect x="132" y="36" width="50" height="8" fill="#4a4845"/>
-          <rect x="182" y="36" width="40" height="8" fill="#4a4845"/>
-          <rect x="222" y="36" width="26" height="8" fill="#4a4845"/>
-          <text x="14" y="42" font-size="4" fill="white" font-family="sans-serif">展開先（ライン/現場）</text>
-          <text x="84" y="42" font-size="4" fill="white" font-family="sans-serif">適用可否</text>
-          <text x="134" y="42" font-size="4" fill="white" font-family="sans-serif">カスタマイズ要否</text>
-          <text x="184" y="42" font-size="4" fill="white" font-family="sans-serif">優先度</text>
-          <text x="224" y="42" font-size="4" fill="white" font-family="sans-serif">担当</text>
-          <rect x="12" y="44" width="70" height="8" fill="white" stroke="#d8d5ce" stroke-width="0.3"/>
-          <rect x="82" y="44" width="50" height="8" fill="white" stroke="#d8d5ce" stroke-width="0.3"/>
-          <rect x="132" y="44" width="50" height="8" fill="white" stroke="#d8d5ce" stroke-width="0.3"/>
-          <rect x="182" y="44" width="40" height="8" fill="#e6f4ea" stroke="#d8d5ce" stroke-width="0.3"/>
-          <rect x="222" y="44" width="26" height="8" fill="white" stroke="#d8d5ce" stroke-width="0.3"/>
-          <text x="14" y="50" font-size="4" fill="#4a4845" font-family="sans-serif">第2ライン</text>
-          <text x="98" y="50" font-size="4.5" fill="#2a7a4a" font-family="sans-serif" text-anchor="middle">○</text>
-          <text x="184" y="50" font-size="4" fill="#2a7a4a" font-family="sans-serif">高</text>
-          <rect x="12" y="52" width="70" height="8" fill="#fafaf8" stroke="#d8d5ce" stroke-width="0.3"/>
-          <rect x="82" y="52" width="50" height="8" fill="#fafaf8" stroke="#d8d5ce" stroke-width="0.3"/>
-          <rect x="132" y="52" width="50" height="8" fill="#fafaf8" stroke="#d8d5ce" stroke-width="0.3"/>
-          <rect x="182" y="52" width="40" height="8" fill="#fef9e3" stroke="#d8d5ce" stroke-width="0.3"/>
-          <rect x="222" y="52" width="26" height="8" fill="#fafaf8" stroke="#d8d5ce" stroke-width="0.3"/>
-          <text x="14" y="58" font-size="4" fill="#4a4845" font-family="sans-serif">別工場A</text>
-          <text x="98" y="58" font-size="4.5" fill="#8c6a2a" font-family="sans-serif" text-anchor="middle">△</text>
-          <text x="184" y="58" font-size="4" fill="#8c6a2a" font-family="sans-serif">中</text>
-          <rect x="12" y="60" width="70" height="8" fill="white" stroke="#d8d5ce" stroke-width="0.3"/>
-          <rect x="82" y="60" width="50" height="8" fill="white" stroke="#d8d5ce" stroke-width="0.3"/>
-          <rect x="132" y="60" width="50" height="8" fill="white" stroke="#d8d5ce" stroke-width="0.3"/>
-          <rect x="182" y="60" width="40" height="8" fill="white" stroke="#d8d5ce" stroke-width="0.3"/>
-          <rect x="222" y="60" width="26" height="8" fill="white" stroke="#d8d5ce" stroke-width="0.3"/>
-          <!-- lessons learned -->
-          <rect x="12" y="74" width="236" height="8" rx="1" fill="#1a1917"/>
-          <text x="15" y="80.5" font-size="5" fill="white" font-family="sans-serif">■ 今回の改善から得た教訓・申し送り</text>
-          <rect x="12" y="82" width="236" height="24" fill="white" stroke="#d8d5ce" stroke-width="0.5"/>
-          <text x="16" y="90" font-size="4" fill="#8a8880" font-family="sans-serif">次の改善プロジェクトへの申し送り・成功要因・失敗要因</text>
-          <rect x="12" y="110" width="236" height="8" rx="1" fill="#1a1917"/>
-          <text x="15" y="116.5" font-size="5" fill="white" font-family="sans-serif">■ 改善サイクルの振り返り（KPT）</text>
-          <text x="16" y="147" font-size="4" fill="#8a8880" font-family="sans-serif">横展開候補の整理　教訓・申し送り　KPT振り返り</text>
-        </svg>
+        <div class="mock-title" style="background:#5a2a8c">横展開検討メモ ／ Phase 5</div>
+        <div class="mock-section">■ 横展開候補の整理</div>
+        <table class="mock-table" style="margin-bottom:8px">
+          <tr><th>展開先</th><th>適用可否</th><th>カスタマイズ</th><th>優先度</th></tr>
+          <tr><td>第2ライン</td><td style="text-align:center;color:#2a7a4a">○</td><td style="text-align:center">不要</td><td style="text-align:center;background:#e8f8ee;color:#2a7a4a">高</td></tr>
+          <tr><td>別工場A</td><td style="text-align:center;color:#8c6a2a">△</td><td style="text-align:center">一部必要</td><td style="text-align:center">中</td></tr>
+          <tr><td>別工場B</td><td style="text-align:center;color:#aaa">—</td><td style="text-align:center">未確認</td><td style="text-align:center">未定</td></tr>
+        </table>
+        <div class="mock-section">■ 今回の教訓・申し送り（KPT）</div>
+        <div class="mock-row"><span class="mock-label">Keep（継続すること）</span><span class="mock-input"></span></div>
+        <div class="mock-row"><span class="mock-label">Problem（課題）</span><span class="mock-input"></span></div>
+        <div class="mock-row"><span class="mock-label">Try（次回試すこと）</span><span class="mock-input"></span></div>
       </div>
       <div class="doc-info">
         <span class="doc-tag">Ph.5 — Excel</span>
@@ -1194,30 +681,21 @@ main { max-width: 1200px; margin: 0 auto; padding: 64px 64px 120px; }
 </main>
 
 <script>
-// Nav active state on scroll
-const sections = document.querySelectorAll('.phase-block');
-const navLinks = document.querySelectorAll('.phase-nav a');
-
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      const id = entry.target.id;
-      navLinks.forEach(a => {
-        a.classList.toggle('active', a.getAttribute('href') === '#' + id);
-      });
+const sections = document.querySelectorAll(".phase-block");
+const navLinks = document.querySelectorAll(".phase-nav a");
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      const id = e.target.id;
+      navLinks.forEach(a => a.classList.toggle("active", a.getAttribute("href") === "#" + id));
     }
   });
 }, { threshold: 0.3 });
-
 sections.forEach(s => observer.observe(s));
-
-// Smooth scroll
-navLinks.forEach(a => {
-  a.addEventListener('click', e => {
-    e.preventDefault();
-    document.querySelector(a.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });
-  });
-});
+navLinks.forEach(a => a.addEventListener("click", e => {
+  e.preventDefault();
+  document.querySelector(a.getAttribute("href")).scrollIntoView({ behavior: "smooth" });
+}));
 </script>
 </body>
 </html>
