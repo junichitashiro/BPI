@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>サプライヤ対応領域マップ</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: "Hiragino Kaku Gothic ProN", "Meiryo", Arial, sans-serif;
+  background: #F8F7F4;
+  color: #2C2C2A;
+  min-height: 100vh;
+  padding: 24px;
+}
+h1 {
+  font-size: 18px;
+  font-weight: 500;
+  color: #2C2C2A;
+  margin-bottom: 4px;
+}
+.subtitle {
+  font-size: 13px;
+  color: #5F5E5A;
+  margin-bottom: 20px;
+}
+.load-area {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+.load-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 16px;
+  font-size: 13px;
+  font-weight: 500;
+  border: 0.5px solid #185FA5;
+  border-radius: 8px;
+  background: #185FA5;
+  color: #fff;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.load-btn:hover { background: #0C447C; }
+.file-name {
+  font-size: 12px;
+  color: #5F5E5A;
+  padding: 6px 12px;
+  background: #fff;
+  border: 0.5px solid #D3D1C7;
+  border-radius: 8px;
+}
+#fileInput { display: none; }
+
+.toolbar {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+}
+.toolbar-label {
+  font-size: 12px;
+  color: #5F5E5A;
+  margin-right: 4px;
+}
+.tab-btn {
+  font-size: 12px;
+  padding: 5px 14px;
+  border-radius: 8px;
+  border: 0.5px solid #B4B2A9;
+  background: #fff;
+  color: #5F5E5A;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+  white-space: nowrap;
+}
+.tab-btn:hover { background: #F1EFE8; }
+.tab-btn.active {
+  background: #185FA5;
+  color: #E6F1FB;
+  border-color: #185FA5;
+}
+
+.stats {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+}
+.stat {
+  background: #fff;
+  border: 0.5px solid #D3D1C7;
+  border-radius: 8px;
+  padding: 10px 18px;
+  min-width: 110px;
+}
+.stat-label { font-size: 11px; color: #888780; margin-bottom: 3px; }
+.stat-val { font-size: 20px; font-weight: 500; }
+.stat-val.danger { color: #A32D2D; }
+
+.table-wrap { overflow-x: auto; }
+table {
+  border-collapse: collapse;
+  font-size: 12px;
+  min-width: 100%;
+}
+th, td {
+  border: 0.5px solid #D3D1C7;
+  text-align: center;
+  vertical-align: middle;
+  padding: 0 4px;
+  height: 38px;
+}
+th.row-hdr {
+  text-align: left;
+  padding-left: 12px;
+  font-weight: 500;
+  background: #F1EFE8;
+  min-width: 150px;
+  width: 150px;
+  white-space: nowrap;
+}
+th.col-hdr {
+  font-weight: 500;
+  background: #F1EFE8;
+  color: #5F5E5A;
+  white-space: nowrap;
+  padding: 0 8px;
+  min-width: 80px;
+}
+th.col-hdr.danger-col { color: #A32D2D; }
+td.cell {
+  font-weight: 500;
+  font-size: 13px;
+  min-width: 80px;
+}
+tfoot td {
+  background: #F8F7F4;
+  font-size: 12px;
+  font-weight: 500;
+  color: #5F5E5A;
+}
+tfoot td.danger-col { color: #A32D2D; }
+
+.legend {
+  display: flex;
+  gap: 16px;
+  margin: 12px 0;
+  flex-wrap: wrap;
+  align-items: center;
+}
+.leg-item {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 12px;
+  color: #5F5E5A;
+}
+.leg-sw {
+  width: 14px;
+  height: 14px;
+  border-radius: 3px;
+  flex-shrink: 0;
+}
+
+.alert-box {
+  margin-top: 12px;
+  padding: 10px 14px;
+  background: #FAECE7;
+  border-left: 3px solid #D85A30;
+  border-radius: 0 8px 8px 0;
+  font-size: 12px;
+  color: #712B13;
+  line-height: 1.6;
+}
+.alert-box strong { font-weight: 500; }
+
+.empty-state {
+  text-align: center;
+  padding: 60px 20px;
+  color: #888780;
+}
+.empty-state .icon { font-size: 40px; margin-bottom: 12px; }
+.empty-state p { font-size: 14px; }
+</style>
+</head>
+<body>
+
+<h1>サプライヤ対応領域マップ</h1>
+<p class="subtitle">項目を切り替えてサプライヤ間の対応状況を比較します</p>
+
+<div class="load-area">
+  <button class="load-btn" onclick="document.getElementById('fileInput').click()">
+    &#128194; Excelを読み込む
+  </button>
+  <span class="file-name" id="fileName">ファイル未選択</span>
+  <input type="file" id="fileInput" accept=".xlsx,.xls" onchange="loadExcel(event)">
+</div>
+
+<div id="main">
+  <div class="empty-state">
+    <div class="icon">📋</div>
+    <p>「Excelを読み込む」から supplier_coverage.xlsx を選択してください</p>
+  </div>
+</div>
+
+<script>
+let allData = {};
+let supplierNames = {};
+let currentCat = "";
+
+const GEO_LEVELS = [0.005, 0.01, 0.02, 0.05];
+
+function loadExcel(evt) {
+  const file = evt.target.files[0];
+  if (!file) return;
+  document.getElementById("fileName").textContent = file.name;
+
+  const reader = new FileReader();
+  reader.onload = e => {
+    const wb = XLSX.read(e.target.result, { type: "array" });
+    parseWorkbook(wb);
+    render();
+  };
+  reader.readAsArrayBuffer(file);
+}
+
+function parseWorkbook(wb) {
+  supplierNames = {};
+  allData = {};
+
+  const masterSheet = wb.Sheets["サプライヤマスタ"];
+  if (masterSheet) {
+    const rows = XLSX.utils.sheet_to_json(masterSheet, { header: 1 });
+    rows.slice(1).forEach(r => {
+      if (r[0] && r[1]) supplierNames[String(r[0]).trim()] = String(r[1]).trim();
+    });
+  }
+
+  const dataSheet = wb.Sheets["対応領域"];
+  if (!dataSheet) return;
+  const rows = XLSX.utils.sheet_to_json(dataSheet, { header: 1 });
+
+  rows.slice(2).forEach(r => {
+    const sid = String(r[0] || "").trim();
+    const cat = String(r[1] || "").trim();
+    const item = String(r[2] || "").trim();
+    const val = String(r[3] || "").trim();
+    if (!sid || !cat || !item) return;
+
+    if (!allData[cat]) allData[cat] = {};
+    if (!allData[cat][sid]) allData[cat][sid] = {};
+    allData[cat][sid][item] = val;
+  });
+}
+
+function buildDataset(cat) {
+  const catData = allData[cat] || {};
+  const sids = Object.keys(catData);
+  const supNames = sids.map(s => supplierNames[s] || s);
+
+  const isGeo = cat === "幾何公差";
+
+  // 項目（列）を収集
+  let items = [];
+  if (isGeo) {
+    const kinds = new Set();
+    sids.forEach(s => Object.keys(catData[s]).forEach(k => kinds.add(k)));
+    kinds.forEach(kind => {
+      GEO_LEVELS.forEach(lv => items.push({ kind, level: lv, label: `${kind}（${lv}）` }));
+    });
+  } else {
+    const itemSet = new Set();
+    sids.forEach(s => Object.keys(catData[s]).forEach(k => itemSet.add(k)));
+    items = Array.from(itemSet).map(i => ({ label: i }));
+  }
+
+  // セル値を構築
+  const matrix = sids.map(sid => {
+    return items.map(item => {
+      if (isGeo) {
+        const raw = catData[sid][item.kind];
+        if (!raw || raw === "×") return "×";
+        const num = parseFloat(raw);
+        if (isNaN(num)) return "×";
+        return num <= item.level ? "○" : "×";
+      } else {
+        return catData[sid][item.label] || "×";
+      }
+    });
+  });
+
+  return { sids, supNames, items, matrix, isGeo };
+}
+
+function cellStyle(val) {
+  if (val === "○") return { bg: "#378ADD", fg: "#E6F1FB" };
+  if (val === "△") return { bg: "#EF9F27", fg: "#412402" };
+  return { bg: "#F1EFE8", fg: "#888780" };
+}
+
+function dangerFlags(matrix, supCount) {
+  const colCount = matrix[0]?.length || 0;
+  return Array.from({ length: colCount }, (_, ci) => {
+    const covered = matrix.filter(row => row[ci] === "○").length;
+    return covered <= Math.ceil(supCount * 0.4);
+  });
+}
+
+function render() {
+  const cats = Object.keys(allData);
+  if (cats.length === 0) return;
+  if (!currentCat || !allData[currentCat]) currentCat = cats[0];
+
+  const ds = buildDataset(currentCat);
+  const danger = dangerFlags(ds.matrix, ds.sids.length);
+  const dangerCount = danger.filter(Boolean).length;
+
+  const totalCells = ds.sids.length * ds.items.length;
+  const coveredCells = ds.matrix.flat().filter(v => v === "○").length;
+  const coverRate = totalCells > 0 ? Math.round(coveredCells / totalCells * 100) : 0;
+
+  let html = `<div class="toolbar"><span class="toolbar-label">表示項目：</span>`;
+  cats.forEach(cat => {
+    html += `<button class="tab-btn${cat === currentCat ? " active" : ""}" onclick="switchTab('${cat}')">${cat}</button>`;
+  });
+  html += `</div>`;
+
+  html += `<div class="stats">
+    <div class="stat"><div class="stat-label">サプライヤ数</div><div class="stat-val">${ds.sids.length}</div></div>
+    <div class="stat"><div class="stat-label">対応率（○）</div><div class="stat-val">${coverRate}%</div></div>
+    <div class="stat"><div class="stat-label">危険領域（列数）</div><div class="stat-val danger">${dangerCount}</div></div>
+  </div>`;
+
+  html += `<div class="table-wrap"><table><thead><tr><th class="row-hdr"></th>`;
+  ds.items.forEach((item, ci) => {
+    html += `<th class="col-hdr${danger[ci] ? " danger-col" : ""}">${item.label}${danger[ci] ? " ⚠" : ""}</th>`;
+  });
+  html += `</tr></thead><tbody>`;
+
+  ds.sids.forEach((sid, ri) => {
+    html += `<tr><th class="row-hdr">${ds.supNames[ri]}</th>`;
+    ds.matrix[ri].forEach(val => {
+      const s = cellStyle(val);
+      html += `<td class="cell" style="background:${s.bg};color:${s.fg};">${val}</td>`;
+    });
+    html += `</tr>`;
+  });
+
+  html += `</tbody><tfoot><tr><td class="row-hdr" style="background:#F1EFE8;font-size:11px;color:#888780;text-align:left;padding-left:12px;">対応数（○）</td>`;
+  ds.items.forEach((_, ci) => {
+    const cnt = ds.matrix.filter(r => r[ci] === "○").length;
+    html += `<td class="${danger[ci] ? "danger-col" : ""}">${cnt}/${ds.sids.length}</td>`;
+  });
+  html += `</tr></tfoot></table></div>`;
+
+  html += `<div class="legend">
+    <div class="leg-item"><div class="leg-sw" style="background:#378ADD;"></div>対応可（○）</div>`;
+  if (!ds.isGeo) {
+    html += `<div class="leg-item"><div class="leg-sw" style="background:#EF9F27;"></div>条件付き（△）</div>`;
+  }
+  html += `<div class="leg-item"><div class="leg-sw" style="background:#F1EFE8;border:0.5px solid #D3D1C7;"></div>対応不可（×）</div>
+    <div class="leg-item" style="margin-left:8px;font-size:11px;">⚠ 対応サプライヤ数が全体の40%以下 ＝ 危険領域</div>
+  </div>`;
+
+  if (dangerCount > 0) {
+    const dangerLabels = ds.items.filter((_, ci) => danger[ci]).map(i => i.label).join("、");
+    html += `<div class="alert-box"><strong>危険領域：</strong>${dangerLabels}<br>対応サプライヤが少なく、発注先の選択肢が限られます。領域拡大の優先検討を推奨します。</div>`;
+  }
+
+  document.getElementById("main").innerHTML = html;
+}
+
+function switchTab(cat) {
+  currentCat = cat;
+  render();
+}
+</script>
+</body>
+</html>
