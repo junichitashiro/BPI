@@ -1,0 +1,45 @@
+{
+  "operators": [
+    {
+      "id": "OP-10",
+      "name": "加藤",
+      "level": "初級",
+      "experience_years": 0,
+      "skills": [],
+      "scores": {
+        "nc_lathe": 0,
+        "manual_lathe": 1,
+        "mc_vertical": 0,
+        "mc_multi": 0,
+        "milling": 0,
+        "surface_grind": 0,
+        "cylindrical_grind": 0,
+        "edm": 0,
+        "g_code": 0,
+        "dialog_program": 0,
+        "cam": 0,
+        "program_debug": 0,
+        "drawing": 1,
+        "gd_t": 0,
+        "material": 0,
+        "measurement_basic": 1,
+        "cmm": 0,
+        "inspection": 0,
+        "quality_kaizen": 0,
+        "cert_lathe": 0,
+        "cert_nc": 0,
+        "cert_mc": 0,
+        "cert_maintenance": 0,
+        "cert_other": 0,
+        "setup": 0,
+        "multi_process": 0,
+        "sop": 0,
+        "teaching": 0,
+        "teaching_trainee": 0,
+        "kaizen": 0,
+        "digital": 1
+      },
+      "notes": "入社半年。現在OJT中。普通旋盤の基本操作を習得しはじめた段階。"
+    }
+  ]
+}

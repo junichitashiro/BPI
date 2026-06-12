@@ -1,0 +1,50 @@
+{
+  "operators": [
+    {
+      "id": "OP-04",
+      "name": "鈴木",
+      "level": "熟練",
+      "experience_years": 9,
+      "skills": [
+        "NC旋盤",
+        "複合加工機",
+        "対話式プログラム",
+        "Mastercam"
+      ],
+      "scores": {
+        "nc_lathe": 5,
+        "manual_lathe": 3,
+        "mc_vertical": 0,
+        "mc_multi": 5,
+        "milling": 0,
+        "surface_grind": 0,
+        "cylindrical_grind": 0,
+        "edm": 0,
+        "g_code": 0,
+        "dialog_program": 4,
+        "cam": 3,
+        "program_debug": 4,
+        "drawing": 5,
+        "gd_t": 5,
+        "material": 5,
+        "measurement_basic": 5,
+        "cmm": 2,
+        "inspection": 5,
+        "quality_kaizen": 4,
+        "cert_lathe": 0,
+        "cert_nc": 0,
+        "cert_mc": 0,
+        "cert_maintenance": 0,
+        "cert_other": 0,
+        "setup": 5,
+        "multi_process": 4,
+        "sop": 3,
+        "teaching": 4,
+        "teaching_trainee": 0,
+        "kaizen": 5,
+        "digital": 0
+      },
+      "notes": "複合機を軸に加工・計測・改善まで高水準。現場のキーパーソン。"
+    }
+  ]
+}

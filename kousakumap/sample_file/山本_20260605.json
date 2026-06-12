@@ -1,0 +1,49 @@
+{
+  "operators": [
+    {
+      "id": "OP-08",
+      "name": "山本",
+      "level": "中級",
+      "experience_years": 3,
+      "skills": [
+        "マシニングセンタ（立型）",
+        "フライス",
+        "対話式プログラム"
+      ],
+      "scores": {
+        "nc_lathe": 1,
+        "manual_lathe": 0,
+        "mc_vertical": 3,
+        "mc_multi": 0,
+        "milling": 2,
+        "surface_grind": 0,
+        "cylindrical_grind": 0,
+        "edm": 0,
+        "g_code": 1,
+        "dialog_program": 3,
+        "cam": 2,
+        "program_debug": 2,
+        "drawing": 3,
+        "gd_t": 2,
+        "material": 2,
+        "measurement_basic": 3,
+        "cmm": 0,
+        "inspection": 3,
+        "quality_kaizen": 2,
+        "cert_lathe": 0,
+        "cert_nc": 0,
+        "cert_mc": 0,
+        "cert_maintenance": 0,
+        "cert_other": 0,
+        "setup": 2,
+        "multi_process": 1,
+        "sop": 0,
+        "teaching": 0,
+        "teaching_trainee": 0,
+        "kaizen": 1,
+        "digital": 2
+      },
+      "notes": "若手。マシニングの基本操作は習得済み。複雑な段取りは先輩のサポートが必要。"
+    }
+  ]
+}

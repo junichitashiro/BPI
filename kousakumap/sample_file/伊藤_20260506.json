@@ -1,0 +1,50 @@
+{
+  "operators": [
+    {
+      "id": "OP-03",
+      "name": "伊藤",
+      "level": "熟練",
+      "experience_years": 12,
+      "skills": [
+        "マシニングセンタ（立型）",
+        "フライス",
+        "CAM操作",
+        "Gコード手書き"
+      ],
+      "scores": {
+        "nc_lathe": 1,
+        "manual_lathe": 2,
+        "mc_vertical": 5,
+        "mc_multi": 3,
+        "milling": 4,
+        "surface_grind": 0,
+        "cylindrical_grind": 0,
+        "edm": 0,
+        "g_code": 3,
+        "dialog_program": 2,
+        "cam": 4,
+        "program_debug": 4,
+        "drawing": 4,
+        "gd_t": 4,
+        "material": 3,
+        "measurement_basic": 4,
+        "cmm": 2,
+        "inspection": 4,
+        "quality_kaizen": 3,
+        "cert_lathe": 0,
+        "cert_nc": 0,
+        "cert_mc": 1,
+        "cert_maintenance": 0,
+        "cert_other": 0,
+        "setup": 4,
+        "multi_process": 4,
+        "sop": 3,
+        "teaching": 3,
+        "teaching_trainee": 0,
+        "kaizen": 3,
+        "digital": 2
+      },
+      "notes": "マシニング中心に幅広く対応。CAMスキルが高く、複雑形状の加工を得意とする。"
+    }
+  ]
+}

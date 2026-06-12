@@ -1,0 +1,47 @@
+{
+  "operators": [
+    {
+      "id": "OP-09",
+      "name": "小林",
+      "level": "初級",
+      "experience_years": 1,
+      "skills": [
+        "NC旋盤（補助）"
+      ],
+      "scores": {
+        "nc_lathe": 1,
+        "manual_lathe": 1,
+        "mc_vertical": 0,
+        "mc_multi": 0,
+        "milling": 0,
+        "surface_grind": 0,
+        "cylindrical_grind": 0,
+        "edm": 0,
+        "g_code": 0,
+        "dialog_program": 1,
+        "cam": 0,
+        "program_debug": 0,
+        "drawing": 2,
+        "gd_t": 1,
+        "material": 1,
+        "measurement_basic": 2,
+        "cmm": 0,
+        "inspection": 1,
+        "quality_kaizen": 0,
+        "cert_lathe": 0,
+        "cert_nc": 0,
+        "cert_mc": 0,
+        "cert_maintenance": 0,
+        "cert_other": 0,
+        "setup": 1,
+        "multi_process": 0,
+        "sop": 0,
+        "teaching": 0,
+        "teaching_trainee": 0,
+        "kaizen": 0,
+        "digital": 1
+      },
+      "notes": "入社1年目。補助作業中心。図面の基礎は理解しており、伸びしろに期待。"
+    }
+  ]
+}

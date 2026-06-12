@@ -1,0 +1,50 @@
+{
+  "operators": [
+    {
+      "id": "OP-01",
+      "name": "青木",
+      "level": "エキスパート",
+      "experience_years": 22,
+      "skills": [
+        "NC旋盤",
+        "複合加工機",
+        "Mastercam",
+        "三次元測定機"
+      ],
+      "scores": {
+        "nc_lathe": 5,
+        "manual_lathe": 4,
+        "mc_vertical": 0,
+        "mc_multi": 5,
+        "milling": 0,
+        "surface_grind": 0,
+        "cylindrical_grind": 0,
+        "edm": 0,
+        "g_code": 2,
+        "dialog_program": 5,
+        "cam": 4,
+        "program_debug": 5,
+        "drawing": 5,
+        "gd_t": 5,
+        "material": 5,
+        "measurement_basic": 5,
+        "cmm": 4,
+        "inspection": 5,
+        "quality_kaizen": 5,
+        "cert_lathe": 1,
+        "cert_nc": 1,
+        "cert_mc": 0,
+        "cert_maintenance": 0,
+        "cert_other": 0,
+        "setup": 5,
+        "multi_process": 5,
+        "sop": 5,
+        "teaching": 5,
+        "teaching_trainee": 4,
+        "kaizen": 5,
+        "digital": 1
+      },
+      "notes": "複合機・旋盤のエース。プログラムから計測・指導まで全方位。現場リーダー。"
+    }
+  ]
+}

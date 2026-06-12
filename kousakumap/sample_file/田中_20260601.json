@@ -1,0 +1,49 @@
+{
+  "operators": [
+    {
+      "id": "OP-05",
+      "name": "田中",
+      "level": "熟練",
+      "experience_years": 8,
+      "skills": [
+        "NC旋盤",
+        "普通旋盤",
+        "Gコード手書き"
+      ],
+      "scores": {
+        "nc_lathe": 4,
+        "manual_lathe": 4,
+        "mc_vertical": 0,
+        "mc_multi": 0,
+        "milling": 0,
+        "surface_grind": 0,
+        "cylindrical_grind": 0,
+        "edm": 0,
+        "g_code": 3,
+        "dialog_program": 2,
+        "cam": 0,
+        "program_debug": 3,
+        "drawing": 4,
+        "gd_t": 3,
+        "material": 3,
+        "measurement_basic": 4,
+        "cmm": 0,
+        "inspection": 4,
+        "quality_kaizen": 3,
+        "cert_lathe": 1,
+        "cert_nc": 2,
+        "cert_mc": 0,
+        "cert_maintenance": 0,
+        "cert_other": 0,
+        "setup": 4,
+        "multi_process": 3,
+        "sop": 2,
+        "teaching": 3,
+        "teaching_trainee": 0,
+        "kaizen": 2,
+        "digital": 0
+      },
+      "notes": "NC旋盤・普通旋盤ともに安定。Gコード手書き可。CAMは未経験だが意欲あり。"
+    }
+  ]
+}

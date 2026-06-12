@@ -1,0 +1,49 @@
+{
+  "operators": [
+    {
+      "id": "OP-06",
+      "name": "渡辺",
+      "level": "中級",
+      "experience_years": 5,
+      "skills": [
+        "NC旋盤",
+        "対話式プログラム",
+        "汎用計測器"
+      ],
+      "scores": {
+        "nc_lathe": 3,
+        "manual_lathe": 2,
+        "mc_vertical": 0,
+        "mc_multi": 0,
+        "milling": 0,
+        "surface_grind": 0,
+        "cylindrical_grind": 0,
+        "edm": 0,
+        "g_code": 1,
+        "dialog_program": 3,
+        "cam": 0,
+        "program_debug": 2,
+        "drawing": 3,
+        "gd_t": 2,
+        "material": 2,
+        "measurement_basic": 3,
+        "cmm": 0,
+        "inspection": 3,
+        "quality_kaizen": 2,
+        "cert_lathe": 0,
+        "cert_nc": 2,
+        "cert_mc": 0,
+        "cert_maintenance": 0,
+        "cert_other": 0,
+        "setup": 3,
+        "multi_process": 2,
+        "sop": 1,
+        "teaching": 1,
+        "teaching_trainee": 0,
+        "kaizen": 2,
+        "digital": 1
+      },
+      "notes": "旋盤作業は自立して行える。段取りと品質管理の精度向上が次の課題。"
+    }
+  ]
+}

@@ -1,0 +1,50 @@
+{
+  "operators": [
+    {
+      "id": "OP-02",
+      "name": "中村",
+      "level": "エキスパート",
+      "experience_years": 18,
+      "skills": [
+        "平面研削",
+        "円筒研削",
+        "NC旋盤",
+        "三次元測定機"
+      ],
+      "scores": {
+        "nc_lathe": 3,
+        "manual_lathe": 4,
+        "mc_vertical": 0,
+        "mc_multi": 0,
+        "milling": 0,
+        "surface_grind": 5,
+        "cylindrical_grind": 5,
+        "edm": 0,
+        "g_code": 1,
+        "dialog_program": 2,
+        "cam": 0,
+        "program_debug": 2,
+        "drawing": 5,
+        "gd_t": 5,
+        "material": 5,
+        "measurement_basic": 5,
+        "cmm": 5,
+        "inspection": 5,
+        "quality_kaizen": 4,
+        "cert_lathe": 1,
+        "cert_nc": 0,
+        "cert_mc": 0,
+        "cert_maintenance": 1,
+        "cert_other": 0,
+        "setup": 5,
+        "multi_process": 3,
+        "sop": 4,
+        "teaching": 5,
+        "teaching_trainee": 2,
+        "kaizen": 4,
+        "digital": 0
+      },
+      "notes": "研削専門のベテラン。CMM・幾何公差の社内第一人者。後進育成にも積極的。"
+    }
+  ]
+}
