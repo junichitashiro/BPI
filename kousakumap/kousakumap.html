@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>加工者スキルヒートマップ</title>
+<style>
+  :root {
+    --bg:#f5f5f5;--surface:#ffffff;--border:#e0e0e0;
+    --text-primary:#1a1a1a;--text-secondary:#666;--text-muted:#999;
+    --accent:#2c5f8a;
+    --s0:#f0f0f0;--s1:#d4e8f5;--s2:#88c4e8;--s3:#3a9fd6;--s4:#1a6fa8;--s5:#0d3d6b;
+    --font:'Helvetica Neue','Arial','Hiragino Kaku Gothic ProN','Meiryo',sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:var(--font);background:var(--bg);color:var(--text-primary);min-height:100vh;}
+  header{background:var(--accent);color:#fff;padding:16px 24px;}
+  header h1{font-size:18px;font-weight:600;letter-spacing:.03em;}
+  header .sub{font-size:12px;opacity:.7;margin-top:2px;}
+  .toolbar{background:var(--surface);border-bottom:1px solid var(--border);padding:12px 24px;display:flex;align-items:center;gap:16px;flex-wrap:wrap;}
+  .load-btn{background:var(--accent);color:#fff;border:none;padding:8px 18px;border-radius:4px;font-size:13px;cursor:pointer;font-family:var(--font);}
+  .load-btn:hover{background:#1a4a6e;}
+  .status{font-size:12px;color:var(--text-secondary);}
+  .status.err{color:#c0392b;} .status.ok{color:#27ae60;}
+  .tabs{display:flex;gap:6px;flex-wrap:wrap;padding:12px 24px 0;}
+  .tab{padding:6px 14px;border:1px solid var(--border);border-radius:20px;font-size:12px;cursor:pointer;background:var(--surface);color:var(--text-secondary);font-family:var(--font);white-space:nowrap;}
+  .tab:hover{border-color:var(--accent);color:var(--accent);}
+  .tab.active{background:var(--accent);border-color:var(--accent);color:#fff;}
+  .main{padding:16px 24px 40px;}
+  .info{font-size:11px;color:var(--text-muted);margin-bottom:10px;}
+  .legend{display:flex;align-items:center;gap:6px;margin:14px 0 6px;flex-wrap:wrap;}
+  .leg-lbl{font-size:11px;color:var(--text-muted);margin-right:4px;}
+  .leg-item{display:flex;align-items:center;gap:4px;font-size:11px;color:var(--text-secondary);}
+  .leg-box{width:20px;height:16px;border-radius:2px;}
+  .wrap{display:inline-block;overflow-x:auto;max-width:100%;background:var(--surface);border:1px solid var(--border);border-radius:6px;}
+  table{border-collapse:collapse;font-size:12px;}
+  thead tr{background:#f8f8f8;border-bottom:2px solid var(--border);}
+  thead th{padding:8px 0;font-weight:600;color:var(--text-secondary);text-align:center;border-right:1px solid var(--border);width:36px;}
+  thead th.skill-th{height:120px;vertical-align:bottom;}
+  thead th.skill-th span{writing-mode:vertical-rl;text-orientation:mixed;white-space:nowrap;display:inline-block;padding-bottom:6px;font-size:11px;}
+  thead th.nc{text-align:left;width:240px;min-width:240px;max-width:240px;padding:10px 14px;position:sticky;left:0;background:#f8f8f8;z-index:2;vertical-align:middle;}
+  thead th.lc{min-width:70px;width:70px;vertical-align:middle;}
+  tbody tr{border-bottom:1px solid var(--border);}
+  tbody tr:hover{background:#fafafa;}
+  tbody tr:last-child{border-bottom:none;}
+  td{padding:0;border-right:1px solid var(--border);text-align:center;vertical-align:middle;}
+  td.nc{padding:10px 14px;text-align:left;font-weight:500;width:240px;min-width:240px;max-width:240px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;position:sticky;left:0;background:var(--surface);z-index:1;border-right:2px solid var(--border);}
+  td.nc .nm{font-size:13px;} td.nc .dt{font-size:10px;color:var(--text-muted);margin-top:1px;}
+  td.lc{padding:8px;font-size:11px;font-weight:600;white-space:nowrap;}
+  .sc{width:36px;height:36px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;cursor:default;}
+  .sc:hover{filter:brightness(.9);}
+  .sc.s0{background:var(--s0);color:#bbb;} .sc.s1{background:var(--s1);color:#2c6080;}
+  .sc.s2{background:var(--s2);color:#1a4a6e;} .sc.s3{background:var(--s3);color:#fff;}
+  .sc.s4{background:var(--s4);color:#fff;} .sc.s5{background:var(--s5);color:#fff;}
+  .badge{display:inline-block;padding:2px 8px;border-radius:10px;font-size:10px;font-weight:700;}
+  .lv0{background:#f0f0f0;color:#888;} .lv1{background:#d4e8f5;color:#2c6080;}
+  .lv2{background:#3a9fd6;color:#fff;} .lv3{background:#0d3d6b;color:#fff;}
+  .tip{position:fixed;background:rgba(20,20,20,.88);color:#fff;font-size:11px;padding:6px 10px;border-radius:4px;pointer-events:none;z-index:1000;white-space:nowrap;display:none;}
+</style>
+</head>
+<body>
+<header>
+  <h1>加工者スキルヒートマップ</h1>
+  <div class="sub">machining-skill-interview / スキル可視化</div>
+</header>
+<div class="toolbar">
+  <button class="load-btn" id="loadBtn">フォルダを選択して読み込む</button>
+  <span class="status ok" id="st">サンプルデータ4名を表示中（鈴木・田中・山本・佐藤）</span>
+</div>
+<div class="tabs" id="tabs"></div>
+<div class="main" id="main"></div>
+<div class="tip" id="tip"></div>
+<script>
+const CATS=[
+  {id:'machine',label:'機械操作',keys:['nc_lathe','manual_lathe','mc_vertical','mc_multi','milling','surface_grind','cylindrical_grind','edm'],
+   labels:{nc_lathe:'NC旋盤',manual_lathe:'普通旋盤',mc_vertical:'MC立型',mc_multi:'MC横/5軸',milling:'フライス',surface_grind:'平面研削',cylindrical_grind:'円筒研削',edm:'放電加工'}},
+  {id:'program',label:'NCプログラム・CAM',keys:['g_code','dialog_program','cam','program_debug'],
+   labels:{g_code:'Gコード手書き',dialog_program:'対話式プログラム',cam:'CAM操作',program_debug:'プログラム修正/デバッグ'}},
+  {id:'drawing',label:'図面・公差',keys:['drawing','gd_t','material'],
+   labels:{drawing:'図面読み取り',gd_t:'幾何公差',material:'材料特性'}},
+  {id:'quality',label:'計測・品質',keys:['measurement_basic','cmm','inspection','quality_kaizen'],
+   labels:{measurement_basic:'汎用計測器',cmm:'三次元測定機',inspection:'工程内検査',quality_kaizen:'不良原因分析'}},
+  {id:'process',label:'段取り・工程管理',keys:['setup','multi_process','sop'],
+   labels:{setup:'段取り替え',multi_process:'多品種/複数機管理',sop:'作業標準書作成'}},
+  {id:'cert',label:'資格',keys:['cert_lathe','cert_nc','cert_mc','cert_maintenance','cert_other'],
+   labels:{cert_lathe:'技能士（旋盤）',cert_nc:'技能士（NC旋盤）',cert_mc:'技能士（MC）',cert_maintenance:'機械保全技能士',cert_other:'その他資格'}},
+  {id:'human',label:'指導・改善',keys:['teaching','teaching_trainee','kaizen','digital'],
+   labels:{teaching:'後輩指導（日本人）',teaching_trainee:'技能実習生指導',kaizen:'工程改善提案',digital:'デジタルツール活用'}},
+];
+
+const LV_MAP={'初級':0,'中級':1,'熟練':2,'エキスパート':3};
+const LV_CLS=['lv0','lv1','lv2','lv3'];
+
+const SAMPLE=[
+  {displayName:'鈴木',date:'2026/06/12',level:'エキスパート',scores:{nc_lathe:5,manual_lathe:3,mc_vertical:0,mc_multi:5,milling:0,surface_grind:0,cylindrical_grind:0,edm:0,g_code:0,dialog_program:4,cam:3,program_debug:4,drawing:5,gd_t:5,material:5,measurement_basic:5,cmm:2,inspection:5,quality_kaizen:4,cert_lathe:0,cert_nc:0,cert_mc:0,cert_maintenance:0,cert_other:0,setup:5,multi_process:4,sop:3,teaching:4,teaching_trainee:0,kaizen:5,digital:0}},
+  {displayName:'田中',date:'2026/06/01',level:'熟練',scores:{nc_lathe:4,manual_lathe:4,mc_vertical:0,mc_multi:0,milling:0,surface_grind:0,cylindrical_grind:0,edm:0,g_code:3,dialog_program:2,cam:0,program_debug:3,drawing:4,gd_t:3,material:3,measurement_basic:4,cmm:0,inspection:4,quality_kaizen:3,cert_lathe:1,cert_nc:2,cert_mc:0,cert_maintenance:0,cert_other:0,setup:4,multi_process:3,sop:2,teaching:3,teaching_trainee:0,kaizen:2,digital:0}},
+  {displayName:'山本',date:'2026/06/05',level:'中級',scores:{nc_lathe:1,manual_lathe:0,mc_vertical:3,mc_multi:0,milling:2,surface_grind:0,cylindrical_grind:0,edm:0,g_code:1,dialog_program:3,cam:2,program_debug:2,drawing:3,gd_t:2,material:2,measurement_basic:3,cmm:0,inspection:3,quality_kaizen:2,cert_lathe:0,cert_nc:0,cert_mc:0,cert_maintenance:0,cert_other:0,setup:2,multi_process:1,sop:0,teaching:0,teaching_trainee:0,kaizen:1,digital:2}},
+  {displayName:'佐藤',date:'2026/06/08',level:'エキスパート',scores:{nc_lathe:2,manual_lathe:4,mc_vertical:0,mc_multi:0,milling:1,surface_grind:5,cylindrical_grind:5,edm:0,g_code:1,dialog_program:2,cam:0,program_debug:2,drawing:5,gd_t:5,material:4,measurement_basic:5,cmm:4,inspection:5,quality_kaizen:4,cert_lathe:1,cert_nc:0,cert_mc:0,cert_maintenance:1,cert_other:0,setup:5,multi_process:3,sop:4,teaching:5,teaching_trainee:3,kaizen:4,digital:0}},
+];
+
+let operators=SAMPLE.slice().sort(function(a,b){return (LV_MAP[b.level]||0)-(LV_MAP[a.level]||0);}), currentCat='machine';
+
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+
+function setStatus(msg,cls){const el=document.getElementById('st');el.textContent=msg;el.className='status'+(cls?' '+cls:'');}
+
+function parseFn(fn){
+  const base=fn.replace(/\.json$/i,'');
+  const m=base.match(/^(.+?)_(\d{8})$/);
+  if(m){const d=m[2];return{name:m[1],date:d.slice(0,4)+'/'+d.slice(4,6)+'/'+d.slice(6,8)};}
+  return{name:base,date:''};
+}
+
+document.getElementById('loadBtn').addEventListener('click',async function(){
+  try{
+    const dh=await window.showDirectoryPicker({mode:'read'});
+    const loaded=[],errs=[];
+    for await(const e of dh.values()){
+      if(e.kind!=='file'||!/\.json$/i.test(e.name))continue;
+      const base=e.name.replace(/\.json$/i,'');
+      if(!/^.+_\d{8}$/.test(base)){errs.push(e.name+':命名規則不一致');continue;}
+      try{
+        const f=await e.getFile();
+        const j=JSON.parse(await f.text());
+        const p=parseFn(e.name);
+        for(const op of(j.operators||[j])){
+          loaded.push({displayName:p.name,date:p.date,id:op.id||'',level:op.level||'',scores:op.scores||{}});
+        }
+      }catch(ex){errs.push(e.name+':パースエラー');}
+    }
+    if(loaded.length===0){setStatus('読み込めるJSONがありませんでした'+(errs.length?'('+errs.join(',')+')':''),'err');return;}
+    loaded.sort(function(a,b){return (LV_MAP[b.level]||0)-(LV_MAP[a.level]||0);});
+    operators=loaded;
+    setStatus(loaded.length+'名を読み込みました'+(errs.length?'(警告:'+errs.join(',')+'）':''),'ok');
+    renderHeatmap();
+  }catch(ex){if(ex.name!=='AbortError')setStatus('読み込み失敗:'+ex.message,'err');}
+});
+
+function renderTabs(){
+  const wrap=document.getElementById('tabs');
+  wrap.innerHTML='';
+  CATS.forEach(function(cat){
+    const btn=document.createElement('button');
+    btn.className='tab'+(cat.id===currentCat?' active':'');
+    btn.textContent=cat.label;
+    btn.addEventListener('click',function(){
+      currentCat=cat.id;
+      document.querySelectorAll('.tab').forEach(function(t){t.classList.remove('active');});
+      btn.classList.add('active');
+      renderHeatmap();
+    });
+    wrap.appendChild(btn);
+  });
+}
+
+function renderHeatmap(){
+  const main=document.getElementById('main');
+  const cat=CATS.find(function(c){return c.id===currentCat;});
+  if(!cat)return;
+  let h='<div class="info">'+operators.length+'名 ／ カテゴリ：'+cat.label+'（'+cat.keys.length+'項目）</div>';
+  h+='<div class="legend"><span class="leg-lbl">スコア凡例：</span>';
+  [0,1,2,3,4,5].forEach(function(s){h+='<div class="leg-item"><div class="leg-box sc s'+s+'"></div>'+s+'</div>';});
+  h+='</div>';
+  h+='<div class="wrap"><table><thead><tr><th class="nc">加工者</th><th class="lc">レベル</th>';
+  cat.keys.forEach(function(k){h+='<th class="skill-th"><span>'+esc(cat.labels[k])+'</span></th>';});
+  h+='</tr></thead><tbody>';
+  operators.forEach(function(op){
+    const lvi=LV_MAP[op.level]!==undefined?LV_MAP[op.level]:0;
+    h+='<tr><td class="nc"><div class="nm">'+esc(op.displayName)+'</div>'+(op.date?'<div class="dt">'+esc(op.date)+'</div>':'')+'</td>';
+    h+='<td class="lc"><span class="badge '+LV_CLS[lvi]+'">'+esc(op.level||'—')+'</span></td>';
+    cat.keys.forEach(function(key){
+      const s=Math.min(5,Math.max(0,Math.round(op.scores[key]||0)));
+      const tip=esc(op.displayName)+' / '+esc(cat.labels[key])+' : '+s;
+      h+='<td><div class="sc s'+s+'" data-tip="'+tip+'">'+(s===0?'—':s)+'</div></td>';
+    });
+    h+='</tr>';
+  });
+  h+='</tbody></table></div>';
+  main.innerHTML=h;
+  const tip=document.getElementById('tip');
+  main.querySelectorAll('[data-tip]').forEach(function(el){
+    el.addEventListener('mouseenter',function(){tip.textContent=el.dataset.tip;tip.style.display='block';});
+    el.addEventListener('mousemove',function(e){tip.style.left=(e.clientX+14)+'px';tip.style.top=(e.clientY-28)+'px';});
+    el.addEventListener('mouseleave',function(){tip.style.display='none';});
+  });
+}
+
+renderTabs();
+renderHeatmap();
+</script>
+</body>
+</html>
